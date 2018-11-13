@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+        <!-- Séquence des avancements -->
+
+        <record id="seq_avancements" model="ir.sequence">
+          <field name="name">Avancements</field>
+          <field name="code">paie.avancement</field>
+          <field name="prefix">AVN%(y)s-</field>
+          <field name="padding">4</field>
+          <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

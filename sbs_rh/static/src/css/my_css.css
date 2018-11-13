@@ -1,0 +1,64 @@
+/*.tree_view_auto_decais [data-field="origine_paiement"]{
+	width: 10%;
+}
+
+.tree_view_auto_decais [data-field="libelle"]{
+	width: 13%;
+}
+
+.tree_view_auto_decais [data-field="facture"]{
+	width: 14%;
+}
+
+.tree_view_auto_decais [data-field="bon_commande"]{
+	width: 14%;
+}
+
+.tree_view_auto_decais [data-field="depense"]{
+	width: 14%;
+}
+
+.tree_view_auto_decais [data-field="montant"]{
+	width: 14%;
+}
+
+.tree_view_auto_decais [data-field="deja_paye"]{
+	width: 10%;
+}
+
+.tree_view_auto_decais [data-field="state"]{
+	width: 9%;
+}
+
+
+/*
+	class de la vue tree du css
+*/
+
+/*.tree_view_cheque [data-field="origine_paiement"]{
+	width: 14%;
+}
+
+.tree_view_cheque [data-field="facture"]{
+	width: 14%;
+}
+
+.tree_view_cheque [data-field="bon_commande"]{
+	width: 14%;
+}
+
+.tree_view_cheque [data-field="bon_encais"]{
+	width: 14%;
+}
+
+.tree_view_cheque [data-field="montant"]{
+	width: 14%;
+}
+
+.tree_view_cheque [data-field="deja_paye"]{
+	width: 10%;
+}
+
+.tree_view_cheque [data-field="state"]{
+	width: 10%;
+}*/

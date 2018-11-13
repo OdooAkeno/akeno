@@ -1,0 +1,97 @@
+<odoo>
+
+    <record id="avancement_tree_view" model="ir.ui.view">
+        <field name="name">aft_paie.avancement.tree</field>
+        <field name="model">aft_paie.avancement</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Avancements">
+                <field name="code"/>
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <field name="src_grille"/>
+                <field name="dst_grille"/>
+                <field name="date_avancement"/>
+                <field name="state"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="avancement_search_view">
+        <field name="name">aft_paie.avancement.search</field>
+        <field name="model">aft_paie.avancement</field>
+        <field name="arch" type="xml">
+            <search string="Recherche des avancements">
+                <field name="code"/>
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <field name="src_grille"/>
+                <field name="dst_grille"/>
+                <field name="date_avancement"/>
+                <filter name="avancements_en_cours" string="Avancements en cours"
+                       domain="[('state', 'not in', ['cancel', 'done'])]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="avancement_form_view" model="ir.ui.view">
+        <field name="name">aft_paie.avancement.form</field>
+        <field name="model">aft_paie.avancement</field>
+        <field name="arch" type="xml">
+            
+            <form string="Formulaire des grilles de salaire">
+                <header>
+                    <button class="oe_highlight" name="action_confirm" string="Confirmer" type="object" states="draft" groups="hr_payroll.group_hr_payroll_manager"/>
+                    <button class="oe_highlight" name="action_done" string="Effectuer l'avancement" type="object" groups="hr_payroll.group_hr_payroll_manager" states="confirm"/>
+                    <button class="oe_highlight" name="action_cancel" string="Annuler" type="object" states="draft,confirm" groups="hr_payroll.group_hr_payroll_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div>
+                        <h2><field name="code" attrs="{'invisible': [('code', '=', False)]}"/></h2>
+                        <h4><label for="date" /></h4>
+                        <h4><field name="date" /></h4>
+                        <h4><label for="reclassement" /></h4>
+                        <h4><field name="reclassement" /></h4>
+                    </div>
+                    <group colspan="4" col="4">
+                        <group colspan="2">
+                            <field name="employee_id" />
+                            <field name="src_grille"/>
+                            <field name="montant_grille"/>
+                        </group>
+                        <group colspan="2">
+                            <field name="contract_id" />
+                            <field name="dst_grille"/>
+                            <field name="montant_grille_dest" />
+                            <field name="date_avancement" attrs="{'invisible': [('date_avancement', '=', False)]}"/>
+                            <field name="num_ordre_src" invisible="1"/>
+                        </group>
+                    </group>
+                    <field name="description" />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="avancement_action_view">
+        <field name="name">Avancements</field>
+        <field name="res_model">aft_paie.avancement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context" eval="{'search_default_avancements_en_cours': 1}"/>
+    </record>
+
+    <menuitem
+        parent="hr.menu_hr_root"
+        id="menu_hr_avancements"
+        name="Avancements"
+        action="avancement_action_view"
+        sequence="50"/>
+
+</odoo>

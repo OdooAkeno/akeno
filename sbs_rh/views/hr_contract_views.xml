@@ -1,0 +1,59 @@
+<odoo>
+
+        <!-- VUES GRAPH -->
+        <record id="hr_contract_graph_view_repartition_contrat" model="ir.ui.view">
+            <field name="name">hr.contract.graph.repartition_contrat</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+
+                <graph string="Repartition par contrat">
+                    <field name="type_id"/>
+                    <field name="department_id"/>
+                </graph>
+
+            </field>
+        </record>
+
+        <record id="hr_contract_graph_view_repartition_debut" model="ir.ui.view">
+            <field name="name">hr.contract.graph.repartition_debut</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+
+                <graph string="Repartition par mois recrutement">
+                    <field name="date_start" interval="month"/>
+                </graph>
+
+            </field>
+        </record>
+
+        <record id="action_hr_contract_graph_contrat_view" model="ir.actions.act_window">
+            <field name="name">Repartition du personnel par type de contrat</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="hr_contract_graph_view_repartition_contrat" />
+        </record>
+
+        <record id="action_hr_contract_graph_debut_view" model="ir.actions.act_window">
+            <field name="name">Repartition du personnel par mois de recrutement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="hr_contract_graph_view_repartition_debut" />
+        </record>
+
+        <menuitem name="Repartition par type de contrat"
+            id="menu_hr_reporting_personnel_contrat"
+            parent="menu_hr_reporting_bilan_social"
+            sequence="4"
+            action="action_hr_contract_graph_contrat_view"/>
+
+        <menuitem name="Repartition par mois recrutement"
+            id="menu_hr_reporting_personnel_debut"
+            parent="menu_hr_reporting_bilan_social"
+            sequence="5"
+            action="action_hr_contract_graph_debut_view"/>
+
+</odoo>

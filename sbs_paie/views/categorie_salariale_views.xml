@@ -1,0 +1,58 @@
+<odoo>
+
+    <record id="categorie_salariale_tree_view" model="ir.ui.view">
+        <field name="name">aft_paie.categorie_salariale.tree</field>
+        <field name="model">aft_paie.categorie_salariale</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Catégories salariales" editable="top" default_order="num_ordre">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="num_ordre"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="categorie_salariale_search_view">
+        <field name="name">aft_paie.categorie_salariale.search</field>
+        <field name="model">aft_paie.categorie_salariale</field>
+        <field name="arch" type="xml">
+            <search string="Recherche de categorie salariale">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="num_ordre"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="categorie_salariale_form_view" model="ir.ui.view">
+        <field name="name">aft_paie.categorie_salariale.form</field>
+        <field name="model">aft_paie.categorie_salariale</field>
+        <field name="arch" type="xml">
+            
+            <form string="Formulaire des chèques">
+                <group>
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="num_ordre" />
+                </group>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="categorie_salariale_action_view">
+        <field name="name">Catégories de salaire </field>
+        <field name="res_model">aft_paie.categorie_salariale</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="menu_param_grille_salariale"
+        sequence="4"
+        id="menu_param_grille_salariale_categorie"
+        name="Catégories de grille salariale"
+        action="categorie_salariale_action_view" />
+
+</odoo>

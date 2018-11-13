@@ -1,0 +1,21 @@
+<odoo>
+              
+        <record id="hr_contract_type_form_view" model="ir.ui.view">
+            <field name="name">hr.contract.type.form</field>
+            <field name="model">hr.contract.type</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_type_view_form" />
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="generer_facture" />
+                    <field name="avancement" />
+                    <group colspan="4">
+                        <field name="grilles_salaire" colspan="4"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+</odoo>

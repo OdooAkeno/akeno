@@ -1,0 +1,30 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+acces_primesret_utilisateur,primes_r utilisateur,model_aft_paie_payslip_primes,base.group_user,1,0,0,0
+acces_primesret_utilisateur_paie,primes_rwcd utilisateur paie,model_aft_paie_payslip_primes,hr_payroll.group_hr_payroll_user,1,1,1,1
+acces_primesret_manager_paie,primes_rwcd manager paie,model_aft_paie_payslip_primes,hr_payroll.group_hr_payroll_manager,1,1,1,1
+acces_primesret_default,primes_r default,model_aft_paie_payslip_primes,,0,0,0,0
+,,,,,,,
+acces_avanc_utilisateur_paie,avancem_rw utilisateur paie,model_aft_paie_avancement,hr_payroll.group_hr_payroll_user,1,1,0,0
+acces_avanc_manager_paie,avancem_rwcd manager paie,model_aft_paie_avancement,hr_payroll.group_hr_payroll_manager,1,1,1,1
+acces_avanc_default,avancem_r default,model_aft_paie_avancement,,0,0,0,0
+,,,,,,,
+acces_cat_sal_utilisateur_paie,cat_salar_rwcd utilisateur paie,model_aft_paie_categorie_salariale,hr_payroll.group_hr_payroll_user,1,1,1,1
+acces_cat_sal_manager_paie,cat_salar_rwcd manager paie,model_aft_paie_categorie_salariale,hr_payroll.group_hr_payroll_manager,1,1,1,1
+acces_cat_sal_default,cat_salar_r default,model_aft_paie_categorie_salariale,,0,0,0,0
+,,,,,,,
+acces_ech_sal_utilisateur_paie,ech_salar_rwcd utilisateur paie,model_aft_paie_echelon_salariale,hr_payroll.group_hr_payroll_user,1,1,1,1
+acces_ech_sal_manager_paie,ech_salar_rwcd manager paie,model_aft_paie_echelon_salariale,hr_payroll.group_hr_payroll_manager,1,1,1,1
+acces_ech_sal_default,ech_salar_r default,model_aft_paie_echelon_salariale,,0,0,0,0
+,,,,,,,
+acces_grill_sal_utilisateur_paie,grill_salar_r utilisateur paie,model_aft_paie_grille_salaire,hr_payroll.group_hr_payroll_user,1,0,0,0
+acces_grill_sal_manager_paie,grill_salar_rwcd manager paie,model_aft_paie_grille_salaire,hr_payroll.group_hr_payroll_manager,1,1,1,1
+acces_grill_sal_default,grill_salar_r default,model_aft_paie_grille_salaire,,0,0,0,0
+,,,,,,,
+acces_prime_ret_utilisateur_paie,prime_ret_r utilisateur paie,model_aft_paie_prime_ret,hr_payroll.group_hr_payroll_user,1,0,0,0
+acces_prime_ret_manager_paie,prime_ret_rwcd manager paie,model_aft_paie_prime_ret,hr_payroll.group_hr_payroll_manager,1,1,1,1
+acces_prime_ret_default,prime_ret_r default,model_aft_paie_prime_ret,,0,0,0,0
+,,,,,,,
+acces_a_invoice_utilisateur_paie,a_invoice_r utilisateur paie,account.model_account_invoice,hr_payroll.group_hr_payroll_user,1,0,0,0
+acces_a_invoice_manager_paie,a_invoice_r manager paie,account.model_account_invoice,hr_payroll.group_hr_payroll_manager,1,0,0,0
+acces_a_invoice_default,a_invoice_r default,account.model_account_invoice,,0,0,0,0

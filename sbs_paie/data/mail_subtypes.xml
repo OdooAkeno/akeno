@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+        <!-- Avancement subtypes -->
+        <record id="avancement_brouillon" model="mail.message.subtype">
+          <field name="name">Nouvel avancement personnel</field>
+          <field name="res_model">aft_paie.avancement</field>
+          <field name="default" eval="True"/>
+          <field name="description">Message envoyé lors de la création d'un nouvel avancement</field>
+        </record>
+
+        <record id="avancement_confirme" model="mail.message.subtype">
+          <field name="name">Avancement confirmé</field>
+          <field name="res_model">aft_paie.avancement</field>
+          <field name="default" eval="True"/>
+          <field name="description">Message envoyé lors de la confirmation d'un avancement</field>
+        </record>
+
+        <record id="avancement_termine" model="mail.message.subtype">
+          <field name="name">Avancement terminé</field>
+          <field name="res_model">aft_paie.avancement</field>
+          <field name="default" eval="True"/>
+          <field name="description">Message envoyé lors de la cloture d'un avancement</field>
+        </record>
+
+        <record id="avancement_annule" model="mail.message.subtype">
+          <field name="name">Avancement annulé</field>
+          <field name="res_model">aft_paie.avancement</field>
+          <field name="default" eval="True"/>
+          <field name="description">Message envoyé lors de la cloture d'un avancement</field>
+        </record>
+
+    </data>
+</odoo>
