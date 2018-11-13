@@ -1,0 +1,44 @@
+<odoo>
+              
+    <record id="hr_contract_form_view" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+        <field name="priority">17</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='wage']" position="before">
+                <field name="grille_salaire" />
+            </xpath>
+
+            <page name="information" position="after">
+                <page name="primes_retenues" string="Primes et Retenues">
+                    <field name="primes_ret">
+                        <tree default_order="is_prime">
+                            <field name="name"/>
+                            <field name="is_prime"/>
+                            <field name="montant"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="avancements" string="Avancements" attrs="{'invisible': [('avancements', '=', [])]}">
+                    <field name="avancements">
+                        <tree>
+                            <field name="code"/>
+                            <field name="src_grille"/>
+                            <field name="dst_grille"/>
+                            <field name="date_avancement"/>
+                            <field name="state" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+
+            <field name="schedule_pay" position="after">
+                <field name="dernier_avancement" attrs="{'invisible': [('dernier_avancement', '=', False)]}"/>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

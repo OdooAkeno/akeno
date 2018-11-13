@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+        <!-- Séquence de l'autorisation de decaissement -->
+
+        <!-- <record id="seq_autorisation_decaissement" model="ir.sequence">
+          <field name="name">Autorisation de decaissement</field>
+          <field name="code">gestion_caisse.autorisation_decais</field>
+          <field name="prefix">AD%(y)s-</field>
+          <field name="padding">4</field>
+          <field name="company_id" eval="False"/>
+        </record> -->
+
+    </data>
+</odoo>

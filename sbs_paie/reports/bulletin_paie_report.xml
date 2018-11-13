@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report 
+            id="action_report_bulletin_paie"
+            model="hr.payslip"
+            string="Bulletin de paie"
+            report_type="qweb-pdf"
+            name="aft_paie.report_bulletin_paie"
+            file="aft_paie.report_bulletin_paie"/>
+
+        <record id="action_report_bulletin_paie" model="ir.actions.report">
+            <field name="paperformat" ref="paperformat_portrait_ss_entete"/>
+        </record>
+
+        <template id="report_bulletin_paie">
+            <t t-call="report.html_container">
+                <t t-foreach="datas" t-as="data">
+                    <t t-set="o" t-value="data['bulletin']" />
+                    <div class="header"></div>
+                    <div class="page">
+                        <table style="width:100%;margin:3mm auto 0;padding:0px;border: 2px solid #000;font-family: 'arial';font-size:small;">
+                            <thead>
+                                <tr>
+                                    <td colspan="6" style="border-right: 2px solid #000; padding: 4px;">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <img class="img" style="height: 100px; width: 100px; margin-top: 10px; margin-left:auto; margin-right: auto; display: block;" src="/aft_purchase/static/src/img/logo.jpg"/>
+                                            </div>
+                                            <div class="col-xs-6" style="text-align: center; vertical-align: center;">
+                                                <span><b>SAVANNAH OIL SERVICES CAMEROON S.A</b></span><br/>
+                                                <span>Société Anonyme au Capital de 100 000 000 Francs CFA.R.C.C.M : RC/DOUALA/2014/B/3256</span><br/>
+                                                <span>N° Contr : M081412130811Q  </span><br/>
+                                                <span>79, Rue du pasteur Lottin SAME (1394) par Bld de la Liberté. B.P: 5008 Akwa-Douala</span><br/>
+                                                <span>Tel :( +237)233 43 43 42.   Fax: (+237)233 42 70 76</span><br/>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <h3 align="center" style="font-size: blue;"><b>BULLETIN DE PAIE</b></h3>
+                                                <div class="row">
+                                                    <div class="col-xs-5">DU MOIS DE:</div>
+                                                    <div class="col-xs-7" style="text-align: left"><span t-esc="data['mois']"/><t t-if="not data['mois']"><br/></t></div>
+                                                    <div class="col-xs-5">PERIODE DU: </div>
+                                                    <div class="col-xs-7" style="text-align: left"><span t-field="o.date_from" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></div>
+                                                    <div class="col-xs-5">AU: </div>
+                                                    <div class="col-xs-7" style="text-align: left"><span t-field="o.date_to"/></div>
+                                                </div>
+                                                <br/><br/>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border-top: 2 px solid #000; border-right: 2px solid #000; padding: 4px;">
+                                        <div class="row">
+                                            <div class="col-xs-5">MATRICULE: </div>
+                                            <div class="col-xs-7" style="text-align: left"><br/></div>
+                                            <div class="col-xs-5">NOM: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.employee_id"/><t t-if="not o.employee_id"><br/></t></div>
+                                            <div class="col-xs-5">FONCTION: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.employee_id.job_id"/><t t-if="not o.employee_id.job_id"><br/></t></div>
+                                            <div class="col-xs-5">DEPARTEMENT: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.employee_id.department_id"/><t t-if="not o.employee_id.department_id"><br/></t></div>
+                                            <div class="col-xs-5">SERVICE: </div>
+                                            <div class="col-xs-7" style="text-align: left"><br/></div>
+                                        </div>
+                                    </td>
+                                    <td colspan="4" style="border-top: 2 px solid #000; padding: 4px;">
+                                        <div class="row">
+                                            <div class="col-xs-5">N° CNPS: </div>
+                                            <div class="col-xs-7" style="text-align: left"><br/></div>
+                                            <div class="col-xs-5">NBRE ENF: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.employee_id.children"/><t t-if="not o.employee_id.children"><br/></t></div>
+                                            <div class="col-xs-5">PAIEMENT: </div>
+                                            <div class="col-xs-7" style="text-align: left"><br/></div>
+                                            <div class="col-xs-5">CATEG/ECHELON: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.contract_id.grille_salaire"/><t t-if="not o.contract_id.grille_salaire"><br/></t></div>
+                                            <div class="col-xs-5">DATE EMBAUCHE: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.contract_id.date_start"/><t t-if="not o.contract_id.date_start"><br/></t></div>
+                                            <div class="col-xs-5">SITUATION FAM.: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.employee_id.marital"/><t t-if="not o.employee_id.marital"><br/></t></div>
+                                            <div class="col-xs-5">SEXE: </div>
+                                            <div class="col-xs-7" style="text-align: left"><span t-field="o.employee_id.gender"/><t t-if="not o.employee_id.gender"><br/></t></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="border-top: 2 px solid #000; border-bottom: 2px solid #000; border-right: 2px solid #000; padding: 4px; width: 11%;" >CODE</th>
+                                    <th style="border-right: 2px solid #000; border-bottom: 2px solid #000; padding: 4px; width: 39%;" >LIBELLE</th>
+                                    <th style="border-top: 2 px solid #000; border-bottom: 2px solid #000; border-right: 2px solid #000; padding: 4px; width: 17%;" >BASE</th>
+                                    <th style="border-top: 2 px solid #000; border-bottom: 2px solid #000; border-right: 2px solid #000; padding: 4px; width: 11%;" >TAUX/NB</th>
+                                    <th style="border-top: 2 px solid #000; border-bottom: 2px solid #000; border-right: 2px solid #000; padding: 4px; width: 11%;" >GAINS</th>
+                                    <th style="border-top: 2 px solid #000; border-bottom: 2px solid #000; padding: 4px; width: 11%;" >RETENUES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="data['lignes']" t-as="groupe">
+                                    <p></p>
+                                    <tr>
+                                        <td style="width: 11%; padding: 4px; border-right: 1px solid #000; text-align: center"><br/></td>
+                                        <td style="width: 30%; padding: 4px; border-right: 1px solid #000; text-align: left"><u><b><span t-esc="groupe[0]" /></b></u></td>
+                                        <td style="width: 17%; padding: 4px; border-right: 1px solid #000; text-align: right;"><br/></td>
+                                        <td style="width: 12%; padding: 4px; border-right: 1px solid #000; text-align: right;"><br/></td>
+                                        <td style="width: 15%; padding: 4px; border-right: 1px solid #000; text-align: right;"><br/></td>
+                                        <td style="width: 15%; padding: 4px; text-align: right;"><br/></td>
+                                    </tr>
+                                    <tr t-foreach="groupe[1]" t-as="line">
+                                        <td style="width: 11%; padding: 4px; border-right: 1px solid #000; text-align: left"><span t-field="line.code"/></td>
+                                        <td style="width: 30%; padding: 4px; border-right: 1px solid #000; text-align: center"><span t-field="line.name"/></td>
+                                        <td style="width: 17%; padding: 4px; border-right: 1px solid #000; text-align: right;"><span t-esc="line.amount" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                        <td style="width: 12%; padding: 4px; border-right: 1px solid #000; text-align: right;">
+                                            <span t-field="line.rate"/>
+                                        </td>
+                                        <td style="width: 15%; padding: 4px; border-right: 1px solid #000; text-align: right;">
+                                            <t t-if="groupe[2] == 'g'">
+                                                <span t-esc="line.total" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            </t>
+                                        </td>
+                                        <td style="width: 15%; padding: 4px; text-align: right;">
+                                            <t t-if="groupe[2] != 'g'">
+                                                <span t-esc="line.total" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="3" rowspan="4" style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;"><br/></td>
+                                    <td colspan="3" rowspan="2" style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">
+                                        <div class="row">
+                                            <div class="col-xs-6"><b>NET A PAYER</b></div>
+                                            <div class="col-xs-6"><h4><b><span t-field="o.salaire_net" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></b></h4></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">EMARGEMENT</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" rowspan="3" style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;"><br/><br/><br/></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" colspan="2" style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">REGLEMENT: VIREMENT</td>
+                                    <td rowspan="2" style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">BRUT IMP.</td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">BRUT NON IMPOSABLE</td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">CNPS</td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">CFC</td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">TAXE COM.</td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px;">IRPP</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['cumul']['sbt']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;">BRUT NON IMPOSABLE</td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['cumul']['cnps']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['cumul']['cfc']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['cumul']['tdl']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                    <td style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['cumul']['irpp_men']" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;" colspan="4"><br/></td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['mois']" /><t t-if="not data['mois']"><br/></t></td>
+                                    <td style="border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; text-align: right;"><span t-esc="data['annee']" /><t t-if="not data['annee']"><br/></t></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

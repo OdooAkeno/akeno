@@ -1,0 +1,9 @@
+<odoo>
+
+	<template id="mystyle" name="Style aft_paie" inherit_id="web.assets_backend">
+	    <xpath expr="link[last()]" position="after">
+	        <link href="/aft_paie/static/src/css/my_css.css" rel="stylesheet" type="text/css"/>
+	    </xpath>
+	</template>
+
+</odoo>

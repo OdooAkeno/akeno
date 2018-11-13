@@ -1,0 +1,81 @@
+<odoo>
+
+    <record id="grille_salaire_tree_view" model="ir.ui.view">
+        <field name="name">aft_paie.grille_salaire.tree</field>
+        <field name="model">aft_paie.grille_salaire</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Grilles salariales">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="num_ordre"/>
+                <field name="montant"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="grille_salaire_search_view">
+        <field name="name">aft_paie.grille_salaire.search</field>
+        <field name="model">aft_paie.grille_salaire</field>
+        <field name="arch" type="xml">
+            <search string="Recherche de echelon salariale">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="num_ordre"/>
+                <field name="montant"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="grille_salaire_form_view" model="ir.ui.view">
+        <field name="name">aft_paie.grille_salaire.form</field>
+        <field name="model">aft_paie.grille_salaire</field>
+        <field name="arch" type="xml">
+            
+            <form string="Formulaire des grilles de salaire">
+                <sheet>
+                    <div>
+                        <h2><label for="code" /></h2>
+                        <h2><field name="code" /></h2>
+                    </div>
+                    <group colspan="4" col="4">
+                        <group colspan="2">
+                            <field name="name" />
+                            <field name="num_ordre" />
+                            <field name="categ_id" />
+                            <field name="ech_id" />
+                        </group>
+                        <group colspan="2">
+                            <field name="montant" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Types de contrat">
+                            <field name="types_contrat"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="grille_salaire_action_view">
+        <field name="name">Grille des salaires </field>
+        <field name="res_model">aft_paie.grille_salaire</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="menu_param_grille_salariale"
+        sequence="2"
+        id="menu_param_grille_salariale_grille"
+        name="Grille des salaires"
+        action="grille_salaire_action_view" />
+
+</odoo>

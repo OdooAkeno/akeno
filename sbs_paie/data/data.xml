@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+        <!--  -->
+
+        <record id="regle_sal_sursalaire_test" model="hr.salary.rule"> 
+          <field name="name">SURSALAIRE TEST</field> 
+          <field name="code">SURSAL</field> 
+          <field name="sequence">10</field> 
+          <field name="category_id" ref="hr_payroll.ALW"/> 
+          <field name="condition_select">none</field> 
+          <field name="condition_python">result = contract.cnps == 0</field> 
+          <field name="amount_select">code</field> 
+          <field name="amount_python_compute">
+# Available variables:
+#----------------------
+# payslip: object containing the payslips
+# employee: hr.employee object
+# contract: hr.contract object
+# rules: object containing the rules code (previously computed)
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category).
+# worked_days: object containing the computed worked days.
+# inputs: object containing the computed inputs.
+
+# Note: returned value have to be set in the variable 'result'
+
+primes = payslip.primes.filtered(lambda x: x.prime_ret.code == 'SURSAL')
+primes = primes.filtered(lambda x: x.utiliser)
+if primes:
+  total = sum(primes.mapped('montant'))
+  result = total * 1.0
+else:
+  result = 10.0
+          </field> 
+      </record> 
+
+    </data>
+</odoo>

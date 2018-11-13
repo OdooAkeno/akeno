@@ -1,0 +1,138 @@
+<odoo>
+              
+        <record id="hr_payslip_form_view" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[1]" position="after">
+                    <page string="Primes/retenues" name="primes_retenues">
+                        <field name="primes">
+                            <tree create="0" delete="0" edit="1" editable="top" default_order="is_prime">
+                                <field name="payslip" invisible="1"/>
+                                <field name="is_prime" readonly="1"/>
+                                <field name="prime_ret" readonly="1"/>
+                                <field name="montant" readonly="1"/>
+                                <field name="utiliser" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- VUE SEARCH  -->
+        <record model="ir.ui.view" id="hr_payslip_search_view">
+            <field name="name">hr.payslip.search</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter" />
+            <field name="arch" type="xml">
+                <filter name="state" position="after">
+                    <filter string="Ce mois" name="paie_du_mois" domain="[('date_from', '&gt;=', datetime.datetime.now().strftime('%Y-%m-01'))]"/>
+                </filter>
+            </field>
+        </record>
+
+        <!-- VUE PIVOT -->
+        <record id="hr_payslip_pivot_view_journal_salaire" model="ir.ui.view">
+            <field name="name">hr.payslip.pivot.journal_salaire</field>
+            <field name="model">hr.payslip</field>
+            <field name="arch" type="xml">
+                <pivot string="Journal des salaires">
+                    <field name="employee_id" type="row"/>
+                    <field name="salaire_base" type="measure"/>
+                    <field name="sursalaire" type="measure"/>
+                    <field name="transport" type="measure"/>
+                    <field name="responsabilite" type="measure"/>
+                    <field name="vehicule" type="measure"/>
+                    <field name="representation" type="measure"/>
+                    <field name="risque" type="measure"/>
+                    <field name="eau_elec" type="measure"/>
+                    <field name="logement" type="measure"/>
+                    <field name="sup_logement" type="measure"/>
+                    <field name="salaire_brut" type="measure"/>
+                    <field name="sit" type="measure"/>
+                    <field name="log_paye" type="measure"/>
+                    <field name="log_retenu" type="measure"/>
+                    <field name="voiture" type="measure"/>
+                    <field name="eau_elec_ret" type="measure"/>
+                    <field name="sbt" type="measure"/>
+                    <field name="sc" type="measure"/>
+                    <field name="fp" type="measure"/>
+                    <field name="pvid" type="measure"/>
+                    <field name="sni" type="measure"/>
+                    <field name="sni_an" type="measure"/>
+                    <field name="base_irpp" type="measure"/>
+                    <field name="c1" type="measure"/>
+                    <field name="c2" type="measure"/>
+                    <field name="c3" type="measure"/>
+                    <field name="c4" type="measure"/>
+                    <field name="irpp_an" type="measure"/>
+                    <field name="irpp_men" type="measure"/>
+                    <field name="cac" type="measure"/>
+                    <field name="cfc" type="measure"/>
+                    <field name="rav" type="measure"/>
+                    <field name="tdl" type="measure"/>
+                    <field name="cnps" type="measure"/>
+                    <field name="retenues" type="measure"/>
+                    <field name="salaire_net" type="measure"/>
+                    <field name="pvid_pat" type="measure"/>
+                    <field name="cnps_pat" type="measure"/>
+                    <field name="acctrav_pat" type="measure"/>
+                    <field name="cfc_pat" type="measure"/>
+                    <field name="fne_pat" type="measure"/>
+                    <field name="retenues_pat" type="measure"/>
+                    <field name="at" type="measure"/>
+                    <field name="af" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="action_hr_payslip_pivot_view" model="ir.actions.act_window">
+            <field name="name">CALCUL SALAIRES</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{'search_default_paie_du_mois': 1}</field>
+        </record>
+        
+        <menuitem name="ANALYSE DE LA PAIE"
+            id="menu_hr_payroll_pivot_journal_salaire"
+            parent="menu_hr_payroll_rapport"
+            sequence="2"
+            action="action_hr_payslip_pivot_view"/>
+
+        <!-- VUES GRAPH -->
+        <record id="hr_payslip_graph_view_paies_men" model="ir.ui.view">
+            <field name="name">hr.payslip.form.paies_mensuelles</field>
+            <field name="model">hr.payslip</field>
+            <field name="arch" type="xml">
+
+                <graph string="Graphe de paie par mois">
+                    <field name="date_from" interval="month"/>
+                    <field name="salaire_net" type="measure"/>
+                </graph>
+
+            </field>
+        </record>
+
+        <record id="action_hr_payslip_graph_paies_men" model="ir.actions.act_window">
+            <field name="name">Paie mensuelles</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="hr_payslip_graph_view_paies_men" />
+        </record>
+
+        <menuitem name="Paies mensuelles"
+            id="menu_hr_reporting_personnel_poste"
+            parent="menu_hr_payroll_rapport"
+            sequence="8"
+            action="action_hr_payslip_graph_paies_men"/>
+
+</odoo>

@@ -1,0 +1,103 @@
+<odoo>
+
+    <record id="hr_employee_form_view" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="priority">18</field>
+        <field name="arch" type="xml">
+
+            <field name="birthday" position="after">
+                <field name="age" />
+            </field>
+
+        </field>
+    </record>
+
+        <!-- VUES GRAPH -->
+        <record id="hr_employee_graph_view_repartition_service" model="ir.ui.view">
+            <field name="name">hr.employee.graph.repartition_service</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+
+                <graph string="Repartition par departement">
+                    <field name="department_id"/>
+                    <field name="gender"/>
+                </graph>
+
+            </field>
+        </record>
+
+        <record id="hr_employee_graph_view_repartition_age" model="ir.ui.view">
+            <field name="name">hr.employee.graph.repartition_age</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+
+                <graph string="Repartition par jour de naissance">
+                    <field name="birthday"/>
+                    <field name="department_id"/>
+                    <field name="gender"/>
+                </graph>
+
+            </field>
+        </record>
+
+        <record id="hr_employee_graph_view_repartition_poste" model="ir.ui.view">
+            <field name="name">hr.employee.graph.repartition_poste</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+
+                <graph string="Repartition par poste">
+                    <field name="job_id"/>
+                    <field name="gender"/>
+                </graph>
+
+            </field>
+        </record>
+
+        <record id="action_hr_employee_graph_servi_view" model="ir.actions.act_window">
+            <field name="name">Repartition du personnel par service</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="hr_employee_graph_view_repartition_service" />
+        </record>
+
+        <record id="action_hr_employee_graph_age_view" model="ir.actions.act_window">
+            <field name="name">Repartition du personnel par age</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="hr_employee_graph_view_repartition_age" />
+        </record>
+
+        <record id="action_hr_employee_graph_poste_view" model="ir.actions.act_window">
+            <field name="name">Repartition du personnel par poste</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="hr_employee_graph_view_repartition_poste" />
+        </record>
+        
+        <menuitem name="Repartition par service"
+            id="menu_hr_reporting_personnel_service"
+            parent="menu_hr_reporting_bilan_social"
+            sequence="1"
+            action="action_hr_employee_graph_servi_view"/>
+
+        <menuitem name="Repartition par age"
+            id="menu_hr_reporting_personnel_age"
+            parent="menu_hr_reporting_bilan_social"
+            sequence="2"
+            action="action_hr_employee_graph_age_view"/>
+
+        <menuitem name="Repartition par poste"
+            id="menu_hr_reporting_personnel_poste"
+            parent="menu_hr_reporting_bilan_social"
+            sequence="3"
+            action="action_hr_employee_graph_poste_view"/>
+
+</odoo>

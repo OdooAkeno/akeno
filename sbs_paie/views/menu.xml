@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- MENU PARAMETRE DE LA GRILLE SALARIALE -->
+
+        <menuitem parent="hr_payroll.menu_hr_payroll_configuration"
+            id="menu_param_grille_salariale"
+            name="Paramètres de la grille salariale"
+            sequence="50"/>
+
+        <!-- MENU DES RAPPORTS DE LA PAIE -->
+        <menuitem parent="hr_payroll.menu_hr_payroll_root"
+            id="menu_hr_payroll_rapport"
+            name="Rapports"
+            sequence="99"/>
+
+    </data>
+</openerp>

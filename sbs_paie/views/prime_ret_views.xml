@@ -1,0 +1,70 @@
+<odoo>
+
+    <record id="prime_ret_tree_view" model="ir.ui.view">
+        <field name="name">aft_paie.prime_ret.tree</field>
+        <field name="model">aft_paie.prime_ret</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Primes/Retenues">
+                <field name="name"/>
+                <field name="is_prime"/>
+                <field name="regle_salariale"/>
+                <field name="code"/>
+                <field name="montant"/>
+                <field name="contrats"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="prime_ret_search_view">
+        <field name="name">aft_paie.prime_ret.search</field>
+        <field name="model">aft_paie.prime_ret</field>
+        <field name="arch" type="xml">
+            <search string="Recherche des primes/retenues">
+                <field name="name"/>
+                <field name="is_prime"/>
+                <field name="code"/>
+                <field name="regle_salariale"/>
+                <field name="contrats"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="prime_ret_form_view" model="ir.ui.view">
+        <field name="name">aft_paie.prime_ret.form</field>
+        <field name="model">aft_paie.prime_ret</field>
+        <field name="arch" type="xml">
+            
+            <form string="Formulaire des primes/retenues">
+                <group>
+                    <field name="name" />
+                    <field name="is_prime" />
+                    <field name="regle_salariale" />
+                    <field name="code" />
+                    <field name="montant" />
+                </group>
+                <notebook>
+                    <page string="Contrats" >
+                        <field name="contrats" />
+                    </page>
+                </notebook>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="prime_ret_action_view">
+        <field name="name">Primes et retenues </field>
+        <field name="res_model">aft_paie.prime_ret</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="hr_payroll.menu_hr_payroll_configuration"
+        sequence="45"
+        id="menu_paie_param_primeret"
+        name="Prime/Retenue"
+        action="prime_ret_action_view" />
+
+</odoo>
