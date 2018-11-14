@@ -25,6 +25,3 @@ acces_prime_ret_utilisateur_paie,prime_ret_r utilisateur paie,model_aft_paie_pri
 acces_prime_ret_manager_paie,prime_ret_rwcd manager paie,model_aft_paie_prime_ret,hr_payroll.group_hr_payroll_manager,1,1,1,1
 acces_prime_ret_default,prime_ret_r default,model_aft_paie_prime_ret,,0,0,0,0
 ,,,,,,,
-acces_a_invoice_utilisateur_paie,a_invoice_r utilisateur paie,account.model_account_invoice,hr_payroll.group_hr_payroll_user,1,0,0,0
-acces_a_invoice_manager_paie,a_invoice_r manager paie,account.model_account_invoice,hr_payroll.group_hr_payroll_manager,1,0,0,0
-acces_a_invoice_default,a_invoice_r default,account.model_account_invoice,,0,0,0,0
