@@ -123,11 +123,11 @@
         <filter name="draft" string="In Draft" domain="[('state','=','draft')]" help="Unvalidated Timesheet Sheets"/>
         <filter name="to_approve" string="To Approve" domain="[('state','=','confirm')]" help="Confirmed Timesheet Sheets"/>
         <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
-        <separator />
-        <group expand="0" string="Group By">
-          <filter string="Employees" domain="[]" context="{'group_by':'employee_id'}"/>
-          <filter string="Department" domain="[]" context="{'group_by':'department_id'}"/>
-        </group>
+        <!-- <separator />
+             <group expand="0" string="Group By">
+             <filter string="Employees" domain="[]" context="{'group_by':'employee_id'}"/>
+             <filter string="Department" domain="[]" context="{'group_by':'department_id'}"/>
+             </group> -->
       </search>
     </field>
   </record>
