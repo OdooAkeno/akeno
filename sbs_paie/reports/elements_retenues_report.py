@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 from odoo import api, fields, models, _
 from odoo.exceptions import Warning
-from odoo.addons.aft_utils.models.tools import format_amount_to_integer
+from odoo.addons.sbs_utils.models.tools import format_amount_to_integer
 
 from dateutil import relativedelta
 

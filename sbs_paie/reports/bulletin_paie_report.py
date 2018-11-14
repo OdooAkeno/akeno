@@ -3,7 +3,7 @@ from datetime import datetime
 
 from odoo import api, fields, models, _
 from odoo.exceptions import Warning
-from odoo.addons.aft_utils.models.tools import amount_to_text_fr_corrected
+from odoo.addons.sbs_utils.models.tools import amount_to_text_fr_corrected
 
 from dateutil import relativedelta
 
