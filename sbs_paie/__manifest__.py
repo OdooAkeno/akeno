@@ -9,7 +9,7 @@
     'depends': [
         'base',
         'sbs_utils',
-        'payroll_timesheet',
+        # 'payroll_timesheet',
         'sbs_rh',
         # 'purchase',
         # 'portal_sale',
