@@ -1,8 +1,8 @@
 <odoo>
 
     <record id="avancement_tree_view" model="ir.ui.view">
-        <field name="name">aft_paie.avancement.tree</field>
-        <field name="model">aft_paie.avancement</field>
+        <field name="name">sbs_paie.avancement.tree</field>
+        <field name="model">sbs_paie.avancement</field>
         <field name="arch" type="xml">
             
             <tree string="Avancements">
@@ -19,8 +19,8 @@
     </record>
 
     <record model="ir.ui.view" id="avancement_search_view">
-        <field name="name">aft_paie.avancement.search</field>
-        <field name="model">aft_paie.avancement</field>
+        <field name="name">sbs_paie.avancement.search</field>
+        <field name="model">sbs_paie.avancement</field>
         <field name="arch" type="xml">
             <search string="Recherche des avancements">
                 <field name="code"/>
@@ -36,8 +36,8 @@
     </record>
 
     <record id="avancement_form_view" model="ir.ui.view">
-        <field name="name">aft_paie.avancement.form</field>
-        <field name="model">aft_paie.avancement</field>
+        <field name="name">sbs_paie.avancement.form</field>
+        <field name="model">sbs_paie.avancement</field>
         <field name="arch" type="xml">
             
             <form string="Formulaire des grilles de salaire">
@@ -82,7 +82,7 @@
 
     <record model="ir.actions.act_window" id="avancement_action_view">
         <field name="name">Avancements</field>
-        <field name="res_model">aft_paie.avancement</field>
+        <field name="res_model">sbs_paie.avancement</field>
         <field name="view_mode">tree,form</field>
         <field name="context" eval="{'search_default_avancements_en_cours': 1}"/>
     </record>

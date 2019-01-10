@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-		
-		<record id="view_elements_gains_paie" model="ir.ui.view">
-			<field name="name">Elements de gain</field>
-			<field name="model">aft_paie.elements_gains_paie</field>
-			<field name="arch" type="xml">
-				<form >
-					<group>
+
+        <record id="view_elements_gains_paie" model="ir.ui.view">
+            <field name="name">Elements de gain</field>
+            <field name="model">sbs_paie.elements_gains_paie</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
                         <group col="4" colspan="4">
-                        	<field name="search_by_month" attrs="{'invisible':[('filter_employees','=',True)]}"/>
+                            <field name="search_by_month" attrs="{'invisible':[('filter_employees','=',True)]}"/>
                             <field name="filter_employees" attrs="{'invisible':[('search_by_month','=',True)]}"/>
                         </group>
-                                               
-						<field name="name" required="1"/>
-						<label for="date_from" string="Période" attrs="{'invisible':[('search_by_month','=',True)]}"/>
-						<div attrs="{'invisible':[('search_by_month','=',True)]}">
-							<field name="date_from" attrs="{'invisible':[('search_by_month','=',True)]}" class="oe_inline"/> - <field name="date_to" attrs="{'invisible':[('search_by_month','=',True)]}" class="oe_inline"/>
-						</div>
-						<field name="mois_de_paie" attrs="{'invisible':['|',('filter_employees','=',True),('search_by_month','=',False)]}"/>
-						
-						<separator string="Liste des employés" attrs="{'invisible':[('filter_employees','=',False)]}"/>
-						<field name="employees" attrs="{'invisible':[('filter_employees','=',False)]}" nolabel="1"/>
-						<separator string="Lots de bulletin" />
-						<field name="lots_bulletin" nolabel="1"/>
-					</group>
-					<footer>
-						<button name="print_elements_gains_paie" type="object" string="Imprimer" class="oe_highlight"/>
-						<button string="Annuler" class="oe_link" special="cancel"/>
-					</footer>
-				</form>
-				
-			</field>
-		</record>
-		<record id="action_wiz_elements_gains_paie" model="ir.actions.act_window">
-			<field name="name">Journal des gain</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">aft_paie.elements_gains_paie</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
-			<field name="target">new</field>
-		</record>
-		
-		<menuitem name="Journal des gain"
-			id="menu_hr_payroll_rapport_journal_gain"
-			parent="menu_hr_payroll_rapport"
-			sequence="5"
-			action="action_wiz_elements_gains_paie"/> 
-		 
-	</data>
+
+                        <field name="name" required="1"/>
+                        <label for="date_from" string="Période" attrs="{'invisible':[('search_by_month','=',True)]}"/>
+                        <div attrs="{'invisible':[('search_by_month','=',True)]}">
+                            <field name="date_from" attrs="{'invisible':[('search_by_month','=',True)]}"
+                                   class="oe_inline"/>
+                            -
+                            <field name="date_to" attrs="{'invisible':[('search_by_month','=',True)]}"
+                                   class="oe_inline"/>
+                        </div>
+                        <field name="mois_de_paie"
+                               attrs="{'invisible':['|',('filter_employees','=',True),('search_by_month','=',False)]}"/>
+
+                        <separator string="Liste des employés" attrs="{'invisible':[('filter_employees','=',False)]}"/>
+                        <field name="employees" attrs="{'invisible':[('filter_employees','=',False)]}" nolabel="1"/>
+                        <separator string="Lots de bulletin"/>
+                        <field name="lots_bulletin" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="print_elements_gains_paie" type="object" string="Imprimer" class="oe_highlight"/>
+                        <button string="Annuler" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+
+            </field>
+        </record>
+        <record id="action_wiz_elements_gains_paie" model="ir.actions.act_window">
+            <field name="name">Journal des gain</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sbs_paie.elements_gains_paie</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Journal des gain"
+                  id="menu_hr_payroll_rapport_journal_gain"
+                  parent="menu_hr_payroll_rapport"
+                  sequence="5"
+                  action="action_wiz_elements_gains_paie"/>
+
+    </data>
 </openerp>

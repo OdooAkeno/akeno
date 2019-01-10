@@ -23,7 +23,7 @@ DATE_FORMAT = "%Y-%m-%d"
 
 
 class ElementsGainsPaie(models.TransientModel):
-    _name = 'aft_paie.elements_gains_paie'
+    _name = 'sbs_paie.elements_gains_paie'
 
     name = fields.Char('Libelle')
 
@@ -106,6 +106,6 @@ class ElementsGainsPaie(models.TransientModel):
 
             return {
                 'type': 'ir.actions.report.xml',
-                'report_name': 'aft_paie.report_elements_gains',
+                'report_name': 'sbs_paie.report_elements_gains',
                 'datas': datas,
             }

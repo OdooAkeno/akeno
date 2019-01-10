@@ -4,7 +4,7 @@
 		
 		<record id="view_elements_retenues_paie" model="ir.ui.view">
 			<field name="name">Elements de retenue</field>
-			<field name="model">aft_paie.elements_retenues_paie</field>
+			<field name="model">sbs_paie.elements_retenues_paie</field>
 			<field name="arch" type="xml">
 				<form >
 					<group>
@@ -36,7 +36,7 @@
 		<record id="action_wiz_elements_retenues_paie" model="ir.actions.act_window">
 			<field name="name">Journal des retenues</field>
 			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">aft_paie.elements_retenues_paie</field>
+			<field name="res_model">sbs_paie.elements_retenues_paie</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
 			<field name="target">new</field>

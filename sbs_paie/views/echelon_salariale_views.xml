@@ -1,8 +1,8 @@
 <odoo>
 
     <record id="echelon_salariale_tree_view" model="ir.ui.view">
-        <field name="name">aft_paie.echelon_salariale.tree</field>
-        <field name="model">aft_paie.echelon_salariale</field>
+        <field name="name">sbs_paie.echelon_salariale.tree</field>
+        <field name="model">sbs_paie.echelon_salariale</field>
         <field name="arch" type="xml">
             
             <tree string="Echelon salariales" editable="top" default_order="num_ordre">
@@ -15,8 +15,8 @@
     </record>
 
     <record model="ir.ui.view" id="echelon_salariale_search_view">
-        <field name="name">aft_paie.echelon_salariale.search</field>
-        <field name="model">aft_paie.echelon_salariale</field>
+        <field name="name">sbs_paie.echelon_salariale.search</field>
+        <field name="model">sbs_paie.echelon_salariale</field>
         <field name="arch" type="xml">
             <search string="Recherche de echelon salariale">
                 <field name="name"/>
@@ -27,8 +27,8 @@
     </record>
 
     <record id="echelon_salariale_form_view" model="ir.ui.view">
-        <field name="name">aft_paie.echelon_salariale.form</field>
-        <field name="model">aft_paie.echelon_salariale</field>
+        <field name="name">sbs_paie.echelon_salariale.form</field>
+        <field name="model">sbs_paie.echelon_salariale</field>
         <field name="arch" type="xml">
             
             <form string="Formulaire des echelons">
@@ -44,7 +44,7 @@
 
     <record model="ir.actions.act_window" id="echelon_salariale_action_view">
         <field name="name">Echelon de salaire </field>
-        <field name="res_model">aft_paie.echelon_salariale</field>
+        <field name="res_model">sbs_paie.echelon_salariale</field>
         <field name="view_mode">tree,form</field>
     </record>
 

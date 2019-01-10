@@ -23,7 +23,7 @@ DATE_FORMAT = "%Y-%m-%d"
 
 
 class DipesWiz(models.TransientModel):
-    _name = 'aft_paie.dipes_wiz'
+    _name = 'sbs_paie.dipes_wiz'
 
     name = fields.Char('Libelle')
 
@@ -106,6 +106,6 @@ class DipesWiz(models.TransientModel):
 
             return {
                 'type': 'ir.actions.report.xml',
-                'report_name': 'aft_paie.dipes_report',
+                'report_name': 'sbs_paie.dipes_report',
                 'datas': datas,
             }

@@ -23,7 +23,7 @@ DATE_FORMAT = "%Y-%m-%d"
 
 
 class ElementsPatronalPaie(models.TransientModel):
-    _name = 'aft_paie.elements_patronal_paie'
+    _name = 'sbs_paie.elements_patronal_paie'
 
     name = fields.Char('Libelle')
 
@@ -106,6 +106,6 @@ class ElementsPatronalPaie(models.TransientModel):
 
             return {
                 'type': 'ir.actions.report.xml',
-                'report_name': 'aft_paie.report_elements_patronale',
+                'report_name': 'sbs_paie.report_elements_patronale',
                 'datas': datas,
             }
