@@ -13,16 +13,16 @@ FORMAT_DATE2 = "%Y-%m-%d"
 
 class ReportBulletinPaie(models.AbstractModel):
 
-    _name = 'report.aft_paie.report_bulletin_paie'
+    _name = 'report.sbs_paie.report_bulletin_paie'
 
     @api.multi
     def render_html(self, docids, data=None):
         report_obj = self.env['report']
         payslip_obj = self.env['hr.payslip']
-        categories_bull = self.env['aft_paie.categorie_bulletin'].search([])
+        categories_bull = self.env['sbs_paie.categorie_bulletin'].search([])
 
         report = report_obj._get_report_from_name(
-            'aft_paie.report_bulletin_paie')
+            'sbs_paie.report_bulletin_paie')
 
         bulletins = payslip_obj.browse(docids)
 
@@ -85,5 +85,5 @@ class ReportBulletinPaie(models.AbstractModel):
         }
 
         return report_obj.render(
-            'aft_paie.report_bulletin_paie',
+            'sbs_paie.report_bulletin_paie',
             docargs)

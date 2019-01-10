@@ -4,11 +4,11 @@
 
         <report 
             id="action_report_report_elements_retenues"
-            model="aft_paie.elements_retenues_paie"
+            model="sbs_paie.elements_retenues_paie"
             string="Elements de retenue"
             report_type="qweb-pdf"
-            name="aft_paie.report_elements_retenues"
-            file="aft_paie.report_elements_retenues"/>
+            name="sbs_paie.report_elements_retenues"
+            file="sbs_paie.report_elements_retenues"/>
 
         <record id="action_report_report_elements_retenues" model="ir.actions.report">
             <field name="paperformat" ref="paperformat_paysage"/>

@@ -6,7 +6,7 @@ HELP_TYPE_CONTRAT = _(u"""Cochez cette case si les ecritures comptables"""
 
 class PayslipPrimes(models.Model):
 
-    _name = 'aft_paie.payslip_primes'
+    _name = 'sbs_paie.payslip_primes'
 
     payslip = fields.Many2one(
         string='Payslip',
@@ -22,7 +22,7 @@ class PayslipPrimes(models.Model):
     prime_ret = fields.Many2one(
         string='Prime/retenue',
         required=True,
-        comodel_name='aft_paie.prime_ret')
+        comodel_name='sbs_paie.prime_ret')
 
     montant = fields.Float(
         string='Montant',

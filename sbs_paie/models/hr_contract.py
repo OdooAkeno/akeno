@@ -19,7 +19,7 @@ class HrContract(models.Model):
         readonly=False,
         required=True,
         help="grille salariale de ce contrat",
-        comodel_name='aft_paie.grille_salaire',
+        comodel_name='sbs_paie.grille_salaire',
         track_visibility='onchange')
 
     wage = fields.Float(
@@ -30,7 +30,7 @@ class HrContract(models.Model):
     primes_ret = fields.Many2many(
         string='Primes et retenues',
         help="Primes de ce contrat",
-        comodel_name='aft_paie.prime_ret',
+        comodel_name='sbs_paie.prime_ret',
         relation='model_primeret_to_contrat',
         track_visibility='onchange')
 
@@ -38,7 +38,7 @@ class HrContract(models.Model):
         string='Avancements',
         readonly=True,
         help=HELP_AVAN,
-        comodel_name='aft_paie.avancement',
+        comodel_name='sbs_paie.avancement',
         inverse_name='contract_id',
         domain=[('state', '=', 'done')])
 
@@ -60,7 +60,7 @@ class HrContract(models.Model):
     @api.model
     def avancement(self):
         u"""Créé automatique les avancements du personnel."""
-        anv_obj = self.env['aft_paie.avancement']
+        anv_obj = self.env['sbs_paie.avancement']
         nbr_an = self.env.user.company_id.nbr_annee_avanc
         date_fil = (datetime.now() - relativedelta(years=nbr_an)).strftime(
             "%Y-%m-%d")

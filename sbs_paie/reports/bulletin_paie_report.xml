@@ -7,8 +7,8 @@
             model="hr.payslip"
             string="Bulletin de paie"
             report_type="qweb-pdf"
-            name="aft_paie.report_bulletin_paie"
-            file="aft_paie.report_bulletin_paie"/>
+            name="sbs.report_bulletin_paie"
+            file="sbs.report_bulletin_paie"/>
 
         <record id="action_report_bulletin_paie" model="ir.actions.report">
             <field name="paperformat" ref="paperformat_portrait_ss_entete"/>

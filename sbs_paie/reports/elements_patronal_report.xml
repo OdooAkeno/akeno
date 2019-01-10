@@ -4,11 +4,11 @@
 
         <report 
             id="action_report_elements_patronale"
-            model="aft_paie.elements_patronale_paie"
+            model="sbs_paie.elements_patronale_paie"
             string="Elements de retenue patronale"
             report_type="qweb-pdf"
-            name="aft_paie.report_elements_patronale"
-            file="aft_paie.report_elements_patronale"/>
+            name="sbs_paie.report_elements_patronale"
+            file="sbs_paie.report_elements_patronale"/>
 
         <record id="action_report_elements_patronale" model="ir.actions.report">
             <field name="paperformat" ref="paperformat_paysage"/>

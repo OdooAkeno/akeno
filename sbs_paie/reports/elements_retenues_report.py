@@ -27,13 +27,13 @@ MOIS = [
 
 class ElementsRetenueReport(models.AbstractModel):
 
-    _name = 'report.aft_paie.report_elements_retenues'
+    _name = 'report.sbs_paie.report_elements_retenues'
 
     @api.multi
     def render_html(self, docids, data=None):
         report_obj = self.env['report']
         report = report_obj._get_report_from_name(
-            'aft_paie.report_elements_retenues')
+            'sbs_paie.report_elements_retenues')
 
         # si le mois est choisi alors on ecrase la valeur de la periode
         by_month = data['form']['search_by_month']
@@ -175,5 +175,5 @@ class ElementsRetenueReport(models.AbstractModel):
         }
 
         return report_obj.render(
-            'aft_paie.report_elements_retenues',
+            'sbs_paie.report_elements_retenues',
             docargs)

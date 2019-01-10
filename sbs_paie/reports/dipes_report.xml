@@ -4,11 +4,11 @@
 
         <report 
             id="action_dipes_report"
-            model="aft_paie.dipes_wiz"
+            model="sbs_paie.dipes_wiz"
             string="DIPE"
             report_type="qweb-pdf"
-            name="aft_paie.dipes_report"
-            file="aft_paie.dipes_report"/>
+            name="sbs_paie.dipes_report"
+            file="sbs_paie.dipes_report"/>
 
         <record id="action_dipes_report" model="ir.actions.report">
             <field name="paperformat" ref="paperformat_paysage"/>

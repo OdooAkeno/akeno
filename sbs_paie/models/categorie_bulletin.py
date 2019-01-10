@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 
 class CategorieBulletin(models.Model):
 
-    _name = "aft_paie.categorie_bulletin"
+    _name = "sbs_paie.categorie_bulletin"
     _order = "ordre"
 
     name = fields.Char(

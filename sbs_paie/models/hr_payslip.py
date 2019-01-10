@@ -9,7 +9,7 @@ class HrPayslip(models.Model):
     primes = fields.One2many(
         string='Primes et retenues',
         help=u"Liste des primes de l'employé",
-        comodel_name='aft_paie.payslip_primes',
+        comodel_name='sbs_paie.payslip_primes',
         inverse_name='payslip',
         readonly=True,
         states={'draft': [('readonly', False)]})
@@ -291,7 +291,7 @@ class HrPayslip(models.Model):
 
     @api.constrains('contract_id')
     def _check_primes(self):
-        pay_primes_obj = self.env['aft_paie.payslip_primes']
+        pay_primes_obj = self.env['sbs_paie.payslip_primes']
         for r in self:
             r.primes.unlink()
             if r.contract_id:

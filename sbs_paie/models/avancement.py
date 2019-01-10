@@ -19,7 +19,7 @@ NO_CONTRACT = _(u'L\'employé doit avoir un contrat en cours')
 class Avancement(models.Model):
 
     _inherit = ['mail.thread']
-    _name = 'aft_paie.avancement'
+    _name = 'sbs_paie.avancement'
     _rec_name = 'code'
     _description = 'Avancement du personnel'
     _order = "date_avancement desc"
@@ -46,7 +46,7 @@ class Avancement(models.Model):
         string='Grille salariale',
         readonly=True,
         help="grille salariale originale de l'employe",
-        comodel_name='aft_paie.grille_salaire',
+        comodel_name='sbs_paie.grille_salaire',
         compute="_compute_src_grille",
         store=True)
 
@@ -61,7 +61,7 @@ class Avancement(models.Model):
         readonly=True)
 
     dst_grille = fields.Many2one(
-        comodel_name='aft_paie.grille_salaire',
+        comodel_name='sbs_paie.grille_salaire',
         string='Grille de destination',
         readonly=True,
         states={'draft': [('readonly', False)]})
@@ -135,7 +135,7 @@ class Avancement(models.Model):
                 body=BODY_CON_AVA % r.employee_id.name,
                 subject=SUBJECT_CON_AVA,
                 message_type='notification',
-                subtype="aft_paie.avancement_confirme")
+                subtype="sbs_paie.avancement_confirme")
 
     @api.multi
     def action_done(self):
@@ -165,7 +165,7 @@ class Avancement(models.Model):
                 body=BODY_TER_AVA % record.employee_id.name,
                 subject=SUBJECT_TER_AVA,
                 message_type='notification',
-                subtype="aft_paie.avancement_termine")
+                subtype="sbs_paie.avancement_termine")
 
     @api.multi
     def action_cancel(self):
@@ -175,12 +175,12 @@ class Avancement(models.Model):
                 body=BODY_ANN_AVA % r.employee_id.name,
                 subject=SUBJECT_ANN_AVA,
                 message_type='notification',
-                subtype="aft_paie.avancement_annule")
+                subtype="sbs_paie.avancement_annule")
 
     @api.constrains('state')
     def check_grille(self):
         u"""Vérifie la grille de destination."""
-        grille_obj = self.env['aft_paie.grille_salaire']
+        grille_obj = self.env['sbs_paie.grille_salaire']
         groupe_gest_paie = self.env.ref(
             'hr_payroll.group_hr_payroll_manager').mapped('users.id')
         for r in self:
@@ -192,7 +192,7 @@ class Avancement(models.Model):
                     body=BODY_NEW_AVA % r.employee_id.name,
                     subject=SUBJECT_NEW_AVA,
                     message_type='notification',
-                    subtype="aft_paie.avancement_brouillon")
+                    subtype="sbs_paie.avancement_brouillon")
 
             if not r.dst_grille:
                 domain = [

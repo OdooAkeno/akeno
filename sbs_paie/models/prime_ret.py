@@ -6,7 +6,7 @@ HELP_TYPE_CONTRAT = _(u"""Cochez cette case si les ecritures comptables"""
 
 class PrimeRet(models.Model):
 
-    _name = 'aft_paie.prime_ret'
+    _name = 'sbs_paie.prime_ret'
 
     regle_salariale = fields.Many2one(
         string='Regle salariale',

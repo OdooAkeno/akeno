@@ -19,7 +19,7 @@ class HrContractType(models.Model):
         readonly=False,
         required=False,
         help="grilles prises en charge par ce type de contrat",
-        comodel_name='aft_paie.grille_salaire',
+        comodel_name='sbs_paie.grille_salaire',
         relation='model_grille_to_typecontrat')
 
     avancement = fields.Boolean(
@@ -31,5 +31,5 @@ class HrContractType(models.Model):
     categories_bulletin = fields.Many2many(
         string='categories de bulletin',
         help="type de categorie affiche pour ce type de contrat",
-        comodel_name='aft_paie.categorie_bulletin',
+        comodel_name='sbs_paie.categorie_bulletin',
         relation='m2m_contracttyp_to_catbull')

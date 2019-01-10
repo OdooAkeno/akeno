@@ -4,11 +4,11 @@
 
         <report 
             id="action_report_report_elements_gains"
-            model="aft_paie.elements_gains_paie"
+            model="sbs_paie.elements_gains_paie"
             string="Elements de gain"
             report_type="qweb-pdf"
-            name="aft_paie.report_elements_gains"
-            file="aft_paie.report_elements_gains"/>
+            name="sbs_paie.report_elements_gains"
+            file="sbs_paie.report_elements_gains"/>
 
         <record id="action_report_report_elements_gains" model="ir.actions.report">
             <field name="paperformat" ref="paperformat_paysage"/>

@@ -4,7 +4,7 @@ from odoo import models, fields
 
 class CategorieSalariale(models.Model):
 
-    _name = "aft_paie.categorie_salariale"
+    _name = "sbs_paie.categorie_salariale"
     _description = u"Catégorie de salaire"
 
     name = fields.Char(string="Libelle", required=True)

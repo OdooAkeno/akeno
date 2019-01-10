@@ -5,7 +5,7 @@ from odoo import api, fields, models
 class GrilleSalaire(models.Model):
 
     _inherit = ['mail.thread']
-    _name = 'aft_paie.grille_salaire'
+    _name = 'sbs_paie.grille_salaire'
     _description = 'Grille salariale'
     _rec_name = "code"
     _order = "num_ordre asc"
@@ -31,11 +31,11 @@ class GrilleSalaire(models.Model):
         required=True)
 
     categ_id = fields.Many2one(
-        comodel_name='aft_paie.categorie_salariale',
+        comodel_name='sbs_paie.categorie_salariale',
         string="Categorie salariale")
 
     ech_id = fields.Many2one(
-        comodel_name='aft_paie.echelon_salariale',
+        comodel_name='sbs_paie.echelon_salariale',
         string="Echellon")
 
     @api.onchange('categ_id', 'ech_id')
