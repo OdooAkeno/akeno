@@ -50,3 +50,7 @@ class HrPayslipRun(models.Model):
         self.slip_ids.filtered(
             lambda x: x.state == "draft").action_payslip_done()
         return super(HrPayslipRun, self).close_payslip_run()
+
+    @api.multi
+    def send_by_mail(self):
+        pass
