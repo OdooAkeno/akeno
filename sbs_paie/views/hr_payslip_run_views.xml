@@ -12,7 +12,7 @@
                     <field name="total_primes"/>
                     <field name="total_retenues"/>
                 </field>
-                <xpath expr="//button[@name]='draft_payslip_run'" position="before">
+                <xpath expr="//button[@name='draft_payslip_run']" position="before">
                     <button name="send_by_mail" type="object" states="close" string="Send by mail" class="oe_highlight"/>
                 </xpath>
 
