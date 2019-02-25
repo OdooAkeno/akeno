@@ -1,0 +1,58 @@
+<odoo>
+
+    <record id="echelon_salariale_tree_view" model="ir.ui.view">
+        <field name="name">sbs_paie.echelon_salariale.tree</field>
+        <field name="model">sbs_paie.echelon_salariale</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Echelon salariales" editable="top" default_order="num_ordre">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="num_ordre"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="echelon_salariale_search_view">
+        <field name="name">sbs_paie.echelon_salariale.search</field>
+        <field name="model">sbs_paie.echelon_salariale</field>
+        <field name="arch" type="xml">
+            <search string="Recherche de echelon salariale">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="num_ordre"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="echelon_salariale_form_view" model="ir.ui.view">
+        <field name="name">sbs_paie.echelon_salariale.form</field>
+        <field name="model">sbs_paie.echelon_salariale</field>
+        <field name="arch" type="xml">
+            
+            <form string="Formulaire des echelons">
+                <group>
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="num_ordre" />
+                </group>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="echelon_salariale_action_view">
+        <field name="name">Echelon de salaire </field>
+        <field name="res_model">sbs_paie.echelon_salariale</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="menu_param_grille_salariale"
+        sequence="4"
+        id="menu_param_grille_salariale_echelon"
+        name="Echelon de grille salariale"
+        action="echelon_salariale_action_view" />
+
+</odoo>

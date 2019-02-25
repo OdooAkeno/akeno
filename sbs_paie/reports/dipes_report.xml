@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report 
+            id="action_dipes_report"
+            model="sbs_paie.dipes_wiz"
+            string="DIPE"
+            report_type="qweb-pdf"
+            name="sbs_paie.dipes_report"
+            file="sbs_paie.dipes_report"/>
+
+        <record id="action_dipes_report" model="ir.actions.report">
+            <field name="paperformat" ref="paperformat_paysage"/>
+        </record>
+
+        <template id="dipes_report">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <br/><br/>
+                    <style type="text/css">
+
+                        thead { display: table-header-group }
+                        tfoot { display: table-row-group }
+                        tr { page-break-inside: avoid }
+
+                    </style> 
+                    <table style="width: 100%;border: 2px solid black;border-collapse: collapse;font-size:x-small;">
+                        <caption align="center"><h4><b><span t-esc="data.get('name')"/></b></h4></caption>
+                        <thead>
+                           <tr type="periode" >
+                                <td colspan="11" align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" >
+                                    Période : <span t-esc="totaux.get('debut')"/> au <span t-esc="totaux.get('fin')"/> [<span t-esc="totaux.get('nbj')"/> Jours]
+                                </td>
+                            </tr>
+                            <tr style="background-color: #e8f2ec; font-size: x-small;">
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;" rowspan="2"></th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:12%;" rowspan="2">NOMS</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;" rowspan="2">NBRE JOURS</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;" rowspan="2">SALAIRE BRUT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:9%;" rowspan="2">SBT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" colspan="2">SALAIRE COTISABLE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" rowspan="2">IRPP</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" rowspan="2">AT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" rowspan="2">AF</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" rowspan="2">PVID</th>
+                            </tr>
+                            <tr style="background-color: #e8f2ec; font-size: x-small;">
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;">SC NON PLAF</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:12%;">SC PLAF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr type="champs" t-foreach="paies" t-as="p">
+                                <td align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; padding-left: 2mm;"><span t-esc="p_index + 1"/></td>
+                                <td align="left"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; font-size: x-small;"><span t-esc="p.get('name')"/></td>
+                                <td align="left"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; font-size: x-small;">30</td>
+                                <td align="right"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;"><span t-esc="p.get('brut')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sbt')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sc')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sc')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('irpp')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('at')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('af')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('pvid')"/></td>
+                             </tr>
+                        </tbody>   
+                        <tr type="totaux">
+                            <td colspan="2" align="center" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;">TOTAL</td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('brut')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sbt')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sc')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sc')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('irpp')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('at')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('af')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('pvid')"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,22 @@
+<odoo>
+              
+        <record id="hr_payslip_run_form_view" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+
+                <field name="credit_note" position="after">
+                    <field name="total_salaire_net"/>
+                    <field name="total_primes"/>
+                    <field name="total_retenues"/>
+                </field>
+                <xpath expr="//button[@name='draft_payslip_run']" position="before">
+                    <button name="send_by_mail" type="object" states="close" string="Send by mail" class="oe_highlight"/>
+                </xpath>
+
+            </field>
+        </record>
+
+</odoo>

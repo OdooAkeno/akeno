@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+      <record id="cron_avancement_auto" model="ir.cron">
+          <field name="name">Effectue les avancements automatiques du personnel</field>
+          <field name="user_id" ref="base.user_root" />
+          <field name="interval_number">1</field>
+          <field name="interval_type">days</field>
+          <field name="numbercall">-1</field>
+          <field name="doall" eval="False" />
+          <!-- <field name="model" eval="'hr.contract'" /> -->
+          <field name="model_id" ref="hr_contract.model_hr_contract" />
+          <field name="function" eval="'avancement'" />
+      </record>
+  </data>
+</odoo>

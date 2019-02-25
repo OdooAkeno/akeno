@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report 
+            id="action_report_report_elements_gains"
+            model="sbs_paie.elements_gains_paie"
+            string="Elements de gain"
+            report_type="qweb-pdf"
+            name="sbs_paie.report_elements_gains"
+            file="sbs_paie.report_elements_gains"/>
+
+        <record id="action_report_report_elements_gains" model="ir.actions.report">
+            <field name="paperformat" ref="paperformat_paysage"/>
+        </record>
+
+        <template id="report_elements_gains">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <br/><br/>
+                    <!-- <table cellpadding="1" cellspacing="1" style="width:100%;margin-top:10px;border:0px;font-size:x-small;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 42%;vertical-align: top">
+                                    <p align="center" style="line-height:60%;"><b>DIVISION DES RESSOURCES ET DU PATRIMOINE</b></p>
+                                    <p align="center" style="line-height:60%;"><b>- - - - - - - - - - - - -</b></p>
+                                    <p align="center" style="line-height:60%;"><b>SERVICE DES RESSOURCES HUMAINES</b></p>
+                                    <p align="center" style="line-height:60%;"><b>- - - - - - - - - - - - -</b></p>
+                                    <p align="center" style="line-height:60%;"><b>BUREAU DU PERSONNEL ET DE LA PAIE</b></p>
+                                    <p align="center" style="line-height:60%;"><b>- - - - - - - - - - - - -</b></p>
+                                </td>
+                                <td style="width: 15%;vertical-align: top">
+                                    <p><br/></p>
+                                </td>
+                                <td style="width: 42%;vertical-align: top">
+                                    <p align="center">Yaoundé, le</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><br/></p> -->
+                    <style type="text/css">
+
+                        thead { display: table-header-group }
+                        tfoot { display: table-row-group }
+                        tr { page-break-inside: avoid }
+
+                    </style> 
+                    <table style="width: 100%;border: 2px solid black;border-collapse: collapse;font-size:x-small;">
+                        <caption align="center"><h4><b><span t-esc="data.get('name')"/></b></h4></caption>
+                        <thead>
+                           <tr type="periode" >
+                                <td colspan="15" align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" >
+                                    Période : <span t-esc="totaux.get('debut')"/> au <span t-esc="totaux.get('fin')"/> [<span t-esc="totaux.get('nbj')"/> Jours]
+                                </td>
+                            </tr>
+                            <tr style="background-color: #e8f2ec; font-size: x-small;">
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;">N</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:12%;">NOM &amp; PRENOMS</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;">CAT/ECH</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:9%;">SALAIRE BASE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">SURSALAIRE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">TRANSPORT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">RESPONSABILITE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >VEHICULE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >REPRESENTATION</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >RISQUE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >EAU/ ELECTRICITE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >LOGEMENT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >SUP LOGEMENT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >SALAIRE BRUT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black; width:10%;">SALAIRE NET</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr type="champs" t-foreach="paies" t-as="p">
+                                <td align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; padding-left: 2mm;"><span t-esc="p_index + 1"/></td>
+                                <td align="left"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; font-size: x-small;"><span t-esc="p.get('name')"/></td>
+                                <td align="left"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;"><span t-esc="p.get('grille')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('base')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sursal')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('transp')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('resp')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('vehicule')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('repres')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('risque')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('eau_elec')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('logem')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sup_logem')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('brut')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;" ><span t-esc="p.get('net')"/></td>
+                             </tr>
+                        </tbody>   
+                        <tr type="totaux">
+                            <td colspan="3" align="center" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;">TOTAL</td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('base')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sursal')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('transp')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('resp')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('vehicule')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('repres')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('risque')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('eau_elec')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('logem')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sup_logem')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('brut')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;" ><span t-esc="totaux.get('net')"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- MENU PARAMETRE DE LA GRILLE SALARIALE -->
+<!-- 
+        <menuitem parent="hr_payroll.menu_hr_payroll_configuration"
+            id="menu_param_grille_salariale"
+            name="Paramètres de la grille salariale" /> -->
+
+        <menuitem name="Bilan social"
+            id="menu_hr_reporting_bilan_social"
+            parent="hr.menu_hr_reporting_timesheet"
+            sequence="10"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report 
+            id="action_report_report_elements_retenues"
+            model="sbs_paie.elements_retenues_paie"
+            string="Elements de retenue"
+            report_type="qweb-pdf"
+            name="sbs_paie.report_elements_retenues"
+            file="sbs_paie.report_elements_retenues"/>
+
+        <record id="action_report_report_elements_retenues" model="ir.actions.report">
+            <field name="paperformat" ref="paperformat_paysage"/>
+        </record>
+
+        <template id="report_elements_retenues">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <br/><br/>
+                    <!-- <table cellpadding="1" cellspacing="1" style="width:100%;margin-top:10px;border:0px;font-size:x-small;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 42%;vertical-align: top">
+                                    <p align="center" style="line-height:60%;"><b>DIVISION DES RESSOURCES ET DU PATRIMOINE</b></p>
+                                    <p align="center" style="line-height:60%;"><b>- - - - - - - - - - - - -</b></p>
+                                    <p align="center" style="line-height:60%;"><b>SERVICE DES RESSOURCES HUMAINES</b></p>
+                                    <p align="center" style="line-height:60%;"><b>- - - - - - - - - - - - -</b></p>
+                                    <p align="center" style="line-height:60%;"><b>BUREAU DU PERSONNEL ET DE LA PAIE</b></p>
+                                    <p align="center" style="line-height:60%;"><b>- - - - - - - - - - - - -</b></p>
+                                </td>
+                                <td style="width: 15%;vertical-align: top">
+                                    <p><br/></p>
+                                </td>
+                                <td style="width: 42%;vertical-align: top">
+                                    <p align="center">Yaoundé, le</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><br/></p> -->
+                    <style type="text/css">
+
+                        thead { display: table-header-group }
+                        tfoot { display: table-row-group }
+                        tr { page-break-inside: avoid }
+
+                    </style> 
+                    <table style="width: 100%;border: 2px solid black;border-collapse: collapse;font-size:x-small;">
+                        <caption align="center"><h4><b><span t-esc="data.get('name')"/></b></h4></caption>
+                        <thead>
+                           <tr type="periode" >
+                                <td colspan="15" align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" >
+                                    Période : <span t-esc="totaux.get('debut')"/> au <span t-esc="totaux.get('fin')"/> [<span t-esc="totaux.get('nbj')"/> Jours]
+                                </td>
+                            </tr>
+                            <tr style="background-color: #e8f2ec; font-size: x-small;">
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;"></th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:12%;"></th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;">SALAIRE BRUT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:9%;">SALAIRE COTISABLE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">SALAIRE IMPOSABLE</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" rowspan="3">IRPP</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">CAC</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >TDL</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >RAV</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >CFC</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >CNPS</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" rowspan="3">TOTAL RETENUES</th>
+                            </tr>
+                            <tr style="background-color: #e8f2ec; font-size: x-small;">
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;"></th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:12%;">TAUX</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;" colspan="3"></th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">10%IRRP</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >Barème</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >Barème</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >1%</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >4,2%</th>
+                            </tr>
+                            <tr style="background-color: #e8f2ec; font-size: x-small;">
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;"></th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:12%;">BASE DE CALCUL</th>
+                                <th align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:4%;" colspan="3"></th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;">SAl Imp</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >SBT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >SBT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >SBT</th>
+                                <th align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; width:6%;" >Sal Cot</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr type="champs" t-foreach="paies" t-as="p">
+                                <td align="left" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; padding-left: 2mm;"><span t-esc="p_index + 1"/></td>
+                                <td align="left"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black; font-size: x-small;"><span t-esc="p.get('name')"/></td>
+                                <td align="right"  style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;"><span t-esc="p.get('brut')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sc')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('sni')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('irpp')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('cac')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('tdl')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('rav')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('cfc')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('cnps')"/></td>
+                                <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="p.get('retenues')"/></td>
+                             </tr>
+                        </tbody>   
+                        <tr type="totaux">
+                            <td colspan="2" align="center" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;">TOTAL</td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('brut')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sc')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('sni')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('irpp')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('cac')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('tdl')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('rav')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('cfc')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('cnps')"/></td>
+                            <td align="right" style="padding:4px; border-top: 1px solid black;border-right: 1px solid black;" ><span t-esc="totaux.get('retenues')"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>

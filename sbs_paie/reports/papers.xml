@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- PAPIER EN PAYSAGE -->
+        <record id="paperformat_paysage" model="report.paperformat">
+            <field name="name">PAPIER FORMAT PAYSAGE</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="True"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_portrait_ss_entete" model="report.paperformat">
+            <field name="name">PAPIER FORMAT PAYSAGE</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="True"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+    </data>
+</openerp>

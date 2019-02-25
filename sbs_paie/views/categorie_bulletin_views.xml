@@ -1,0 +1,70 @@
+<odoo>
+
+    <record id="categorie_bulletin_tree_view" model="ir.ui.view">
+        <field name="name">sbs_paie.categorie_bulletin.tree</field>
+        <field name="model">sbs_paie.categorie_bulletin</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Catégories salariales" >
+                <field name="name"/>
+                <field name="ordre"/>
+                <field name="nature"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="categorie_bulletin_search_view">
+        <field name="name">sbs_paie.categorie_bulletin.search</field>
+        <field name="model">sbs_paie.categorie_bulletin</field>
+        <field name="arch" type="xml">
+            <search string="Recherche de categorie salariale">
+                <field name="name"/>
+                <field name="nature"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="categorie_bulletin_form_view" model="ir.ui.view">
+        <field name="name">sbs_paie.categorie_bulletin.form</field>
+        <field name="model">sbs_paie.categorie_bulletin</field>
+        <field name="arch" type="xml">
+
+            <form string="Categorie de bulletin">
+                <group>
+                    <field name="name" />
+                    <field name="ordre" />
+                    <field name="nature" />
+                </group>
+                <notebook>
+                    <page string="Regles salariales">
+                        <field name="regles_salariales">
+                            <tree default_order="sequence">
+                                <field name="name" />
+                                <field name="sequence" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Types de contrat">
+                        <field name="types_contrat" />
+                    </page>
+                </notebook>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="categorie_bulletin_action_view">
+        <field name="name">Catégories du bulletin </field>
+        <field name="res_model">sbs_paie.categorie_bulletin</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="hr_payroll.menu_hr_payroll_configuration"
+        sequence="46"
+        id="menu_paie_param_categorie_bull"
+        name="Categories du bulletin"
+        action="categorie_bulletin_action_view" />
+
+</odoo>
