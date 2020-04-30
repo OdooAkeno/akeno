@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+	<menuitem id="menu_reports_excel" name="Reports Excel" parent="base.reporting_menuitem" action="action_report_excel_tree" groups="base.group_no_one" sequence="5"/>
+    </data>
+</odoo>

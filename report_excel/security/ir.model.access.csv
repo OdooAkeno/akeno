@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_report_excel_user,report.excel user,model_report_excel,base.group_user,1,1,1,1
+access_report_excel_param_user,report.excel.param user,model_report_excel_param,base.group_user,1,1,1,1
+access_report_excel_aggregate_user,report.excel.aggregate user,model_report_excel_aggregate,base.group_user,1,1,1,1
+access_report_excel_section_user,report.excel.section user,model_report_excel_section,base.group_user,1,1,1,1
+access_report_excel_fields_user,report.excel.fields user,model_report_excel_fields,base.group_user,1,1,1,1
+access_report_excel_fields_sql_user,report.excel.fields.sql user,model_report_excel_fields_sql,base.group_user,1,1,1,1
+

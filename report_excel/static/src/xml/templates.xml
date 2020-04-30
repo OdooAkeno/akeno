@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<template>
+
+<t t-name="FieldDomainParam.content">
+    <div t-if="hasModel" class="o_field_domain_param_panel">
+        <span t-if="!isValid" class="text-warning" role="alert"><i class="fa fa-exclamation-triangle" role="img" aria-label="Warning" title="Warning"/> Invalid domain</span>
+        <button t-if="inDialogEdit" class="btn btn-sm btn-primary o_field_domain_dialog_button">Edit Domain</button>
+    </div>
+    <div t-else="">Select a Parent Section Field to add a Filter.</div>
+</t>
+<div t-name="DomainLeafParam" t-attf-class="o_domain_node o_domain_leaf o_domain_selector_row #{widget.readonly ? 'o_read_mode' : 'o_edit_mode'}">
+    <t t-call="DomainNode.ControlPanel"/>
+    <div t-if="!widget.readonly" class="o_domain_leaf_edition">
+        <div> 
+            <select class="o_domain_leaf_operator_select o_input">
+                <option t-foreach="widget.operators" t-as="key"
+                        t-att-value="key"
+                        t-att-selected="widget.displayOperator === key ? 'selected' : None">
+                    <t t-esc="key_value"/>
+                </option>
+            </select>
+        </div>
+    <div t-if="!widget.readonly" class="o_domain_leaf_param">
+        <select class="o_domain_leaf_operator_select_param">
+            <option value="value" t-att-selected="widget.operator_param === 'value' ? 'selected' : null">VALUE</option>
+            <option value="param" t-att-selected="widget.operator_param === 'param' ? 'selected' : null">PARAM</option>
+        </select>
+    </div>
+    <strong t-else="">
+        <t t-if="widget.operator_param === 'value'">VALUE</t>
+        <t t-if="widget.operator_param === 'param'">PARAM</t>
+        <t t-if="widget.operator_param === 'value'">NONE</t>
+    </strong>
+        <div t-attf-class="o_ds_value_cell#{_.contains(['set', 'not set'], widget.displayOperator) ? ' d-none' : ''}">
+            <t t-if="widget.selectionChoices !== null">
+                <select class="o_domain_leaf_value_input o_input">
+                    <option t-foreach="widget.selectionChoices" t-as="val"
+                            t-att-value="val[0]"
+                            t-att-selected="_.contains(val, widget.displayValue) ? 'selected' : None">
+                        <t t-esc="val[1]"/>
+                    </option>
+                </select>
+            </t>
+            <t t-else="">
+                <t t-if="_.contains(['in', 'not in'], widget.operator)">
+                    <div class="o_domain_leaf_value_input">
+                        <span class="badge badge-pill" t-foreach="widget.displayValue" t-as="val">
+                            <t t-esc="val"/> <i class="o_domain_leaf_value_remove_tag_button fa fa-times" t-att-data-value="val" role="img" aria-label="Remove tag" title="Remove tag"/>
+                        </span>
+                    </div>
+                    <div class="o_domain_leaf_value_tags">
+                        <input placeholder="Add new value" type="text" class="o_input"/>
+                        <button class="btn btn-sm btn-primary fa fa-plus o_domain_leaf_value_add_tag_button" aria-label="Add tag" title="Add tag"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <input class="o_domain_leaf_value_input o_input" type="text" t-att-value="widget.displayValue"/>
+                </t>
+            </t>
+        </div>
+    </div>
+    <div t-else="" class="o_domain_leaf_info">
+        <t t-if="_.isString(widget.value)">
+            <span class="o_domain_leaf_operator"><t t-esc="widget.operator_mapping[widget.operator]"/></span>
+            <span class="o_domain_leaf_value text-primary">"<t t-esc="widget.value"/>"</span>
+        </t>
+        <t t-if="_.isArray(widget.value)">
+            <span class="o_domain_leaf_operator"><t t-esc="widget.operator_mapping[widget.operator]"/></span>
+            <t t-foreach="widget.value" t-as="v">
+                <span class="o_domain_leaf_value text-primary">"<t t-esc="v"/>"</span>
+                <t t-if="!v_last"> or </t>
+            </t>
+        </t>
+        <t t-if="_.isNumber(widget.value)">
+            <span class="o_domain_leaf_operator"><t t-esc="widget.operator_mapping[widget.operator]"/></span>
+            <span class="o_domain_leaf_value text-primary"><t t-esc="widget.value"></t></span>
+        </t>
+        <t t-if="_.isBoolean(widget.value)">
+            is
+            <t t-if="widget.operator === '=' &amp;&amp; widget.value === false || widget.operator === '!=' &amp;&amp; widget.value === true">not</t>
+            set
+        </t>
+    </div>
+</div>
+</template>
