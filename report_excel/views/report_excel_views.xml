@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_report_menu_create" model="ir.ui.view">
+            <field name="name">Create Menu</field>
+            <field name="model">wizard.report.menu.create</field>
+            <field name="arch" type="xml">
+                <form string="Create Menu">
+                    <group>
+                        <field name="name"/>
+                        <field name="menu_id" domain="[('parent_id','&lt;&gt;',False)]"/>
+                    </group>
+                    <footer>
+                        <button name="menu_create" string="Create Menu" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window context="{'model_id': active_id}" id="act_report_menu_create" name="Create Menu" res_model="wizard.report.menu.create" target="new" view_mode="form"/>
+        <record model="ir.ui.view" id="report_excel_view_search">
+            <field name="name">report.excel.search</field>
+            <field name="model">report.excel</field>
+            <field name="arch" type="xml">
+                <search string="Report Excel Search">
+                    <field name="name" string="Report Excel"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                </search>
+            </field>
+        </record>
+        <record id="report_excel_view_tree" model="ir.ui.view">
+            <field name="name">report.excel.tree</field>
+            <field name="model">report.excel</field>
+            <field name="arch" type="xml">
+                <tree string="Report Excel">
+                    <field name="name"/>
+                    <field name="root_model_id"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+			<record id="report_excel_view" model="ir.ui.view">
+            <field name="name">report.excel.form</field>
+            <field name="model">report.excel</field>
+            <field name="arch" type="xml">
+                <form string="Report Excel">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        <button  class="oe_stat_button" name="attachment_doc_view"  type="object" icon="fa-files-o">
+                            <field string="Templates" name="doc_count" widget="statinfo"/>
+                        </button>
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                        	<label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="e.g. Sales Report"/></h1>
+                        </div>
+                        <group>
+                            <field name="description"/>
+                            <field name="description_report"/>
+                        </group>
+		            	<group col="4">
+							<field name="template_name_id" placeholder="Select Template"
+								options="{'no_open': True, 'no_create': True}" />
+							<field name="sheet_reference" placeholder="Sheet1" attrs="{'invisible' : [('template_name_id', '==', False)]}"/>
+							<field name="out_file_name" placeholder="Report_"/>
+							<field name="root_model_id" domain="['&amp;',('transient','=',False),('model','!=','_unknown')]" options="{'no_open': True, 'no_create': True}"/>
+							<field name="report_id"  invisible="1"/>
+							<field name="report_excel_param_content" invisible="1"/> 
+						</group>
+		            	<group col="2">
+	                        <group >
+								<field name="send_email"/>
+								<field name="email_template_id" domain="[('model_id','=', root_model_id)]" attrs="{'invisible' : [('send_email', '==', False)]}"/>
+	                        </group>
+	                        <group name="menu" >
+	                            <button groups="base.group_no_one"
+	                                icon="fa-align-justify"
+	                                name="%(act_report_menu_create)d"
+	                                string="Create a Menu" type="action"
+	                                target="new" />
+								<p>
+									<field name="ir_values_id" invisible="1"/>
+		                            <button name="create_action" string="Add in the 'Print' menu" type="object"
+		                                    attrs="{'invisible':[('ir_values_id','!=',False)]}" icon="fa-plus-square"
+		                                    help="Display an option on related documents(Root Model) to print this report" class="oe_stat_button"/>
+		                            <button name="unlink_action" string="Remove from the 'Print' menu" type="object"
+		                                    attrs="{'invisible':[('ir_values_id','=',False)]}" icon="fa-minus-square"
+		                                    help="Remove the contextual action related this report" class="oe_stat_button"/>
+	                            </p>
+	                        </group>
+                        </group>
+                    <notebook colspan="4">
+                        <page string="Report Parameters">
+                            <field name="report_excel_param_ids" nolabel="1">
+								<form string="Report Parameters">
+									<group col="4">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="type_param"/>
+                                    <field name="param_ir_model_id" options="{'no_open': True, 'no_create': True}" attrs="{'required': [('type_param', 'in', ('many2one','many2many'))], 'invisible' : [('type_param', 'not in', ('many2one','many2many'))]}"/>
+                                    <field name="param_required"/>
+									<field name="wizard_param_ir_model_field_id" invisible="1"/>
+	                                </group>
+								</form>
+                                <tree string="Report Parameters">
+									<field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="type_param"/>
+                                    <field name="param_ir_model_id"/>
+                                    <field name="param_required"/>
+									<field name="wizard_param_ir_model_field_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+					</notebook>
+                    <notebook colspan="4">					
+	                    <page string="Report Sections">
+							<field colspan="4" name="report_excel_section_ids" context="{'root_model_id': root_model_id, 'report_id': report_id, 'report_excel_param_content': report_excel_param_content, 'section': False}"/>
+						</page>
+					</notebook>
+                        <group string="Legends for supported Date and Time Formats">
+                            <div>%%a - Abbreviated weekday name.</div>
+                            <div>%%A - Full weekday name.</div>
+                            <div>%%b - Abbreviated month name.</div>
+                            <div>%%B - Full month name."</div>
+                            <div>%%d - Day of the month [01,31]."</div>
+                            <div>%%j - Day of the year [001,366]."</div>
+                            <div>%%H - Hour (24-hour clock) [00,23]."</div>
+                            <div>%%I - Hour (12-hour clock) [01,12]."</div>
+                            <div>%%M - Minute [00,59]."</div>
+                            <div>%%p - Equivalent of either AM or PM."</div>
+                            <div>%%S - Seconds [00,61]."</div>
+                            <div>%%w - Weekday number [0(Sunday),6]."</div>
+                            <div>%%y - Year without century [00,99]."</div>
+                            <div>%%Y - Year with century."</div>
+                            <div>%%m - Month number [01,12]."</div>
+                        </group>
+                        <group string="Examples">
+                            <div>1. %%b, %%B         ==> Dec, December</div>
+                            <div>2. %%a ,%%A         ==> Fri, Friday</div>
+                            <div>3. %%y, %%Y         ==> 08, 2008</div>
+                            <div>4. %%d, %%m         ==> 05, 12</div>
+                            <div>5. %%H:%%M:%%S      ==> 18:25:20</div>
+                            <div>6. %%I:%%M:%%S %%p  ==> 06:25:20 PM</div>
+                            <div>7. %%j              ==> 340</div>
+                            <div>8. %%S              ==> 20</div>
+                            <div>9. %%w              ==> 5 ( Friday is the 6th day)</div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_report_excel_section_form" model="ir.ui.view">
+            <field name="name">report.excel.section.form</field>
+            <field name="model">report.excel.section</field>
+            <field name="arch" type="xml">
+                <form string="Report Section">
+                    <group>
+                      <group string="Main Info">
+                        <field name="name"/>
+                        <field name="section" invisible="1"/>
+                        <field name="root_model_related_field_id"  attrs="{'required': [('section','=',True)], 'invisible':[('section','!=',True)]}" options="{'no_open': True, 'no_create': True}" 
+                        													context="{'section': True, 'tree_view_ref': 'ir_model_fields.view_model_fields_tree_model'}"/>
+                        <field name="root_model_id"  attrs="{'required': [('section','!=',True)], 'invisible':[('section','=',True)]}" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="root_model_name" invisible="1"/>
+						<field name="check_root_model"  invisible="1"/>
+                        <field name="type_data" invisible="1"/>
+                        <field name="section_level" invisible="1"/>
+	                        <field name="section_start" placeholder="e.g. B6"/>
+	                        <field name="section_end" placeholder="e.g. H10"/>
+                        <field name="level" invisible="1"/>                        
+                        <field name="sequence" invisible="1"/>
+                        <field name="report_id" invisible="1"/>
+                        <field name="report_excel_param_content" invisible="1"/>
+                        <field name="domain" widget="domain_param"  options="{'model': 'root_model_name', 'in_dialog': True}"/>
+                        <field name="parent_id" attrs="{'readonly' : True, 'invisible': 0}" options="{'no_open': True, 'no_create': True}"/>
+                      </group>
+                      <group string="Children Sections">
+                        <field name="children_ids" nolabel="1" context="{'root_model_id': root_model_id, 'report_id': report_id, 'report_excel_param_content': report_excel_param_content, 'section': True}"/>
+                      </group>
+                    </group>
+                  	<p>
+                        <field name="sql_bool" invisible="1"/>
+	                      <field name="sql_statement" attrs="{'invisible' : [('sql_bool', '==', False)]}"/>
+                   	</p>
+                      <group col="1">
+                      <group  name="section_fields_header" string="Report Section Fields" col="4">
+                      </group>
+                      	<p>
+	                        <field name="report_excel_fields_ids" nolabel="1" context="{'root_model_id': root_model_id, 'report_id': report_id, 'report_excel_param_content': report_excel_param_content}" attrs="{'invisible' : [('sql_bool', '!=', False)]}"/>
+	                        <field name="report_excel_fields_sql_ids" nolabel="1" context="{'root_model_id': root_model_id, 'report_id': report_id, 'report_excel_param_content': report_excel_param_content}" attrs="{'invisible' : [('sql_bool', '==', False)]}"/>
+                        </p>
+                      </group>
+                      <group>
+                        <field name="description"/>
+                      </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_report_excel_section_tree" model="ir.ui.view">
+            <field name="name">report.excel.section.tree</field>
+            <field name="model">report.excel.section</field>
+            <field name="arch" type="xml">
+                <tree string="Report Sections">
+                    <field name="sequence" widget="handle"/>
+                        <field name="name"/>
+                        <field name="type_data" invisible="1"/>
+                        <field name="section_start" string="Start Line"/>
+                        <field name="section_end" string="End Line"/>
+                        <field name="domain" widget="domain_param"  options="{'model': 'root_model_name', 'in_dialog': True}" invisible="1"/>
+	                    <field name="level" invisible="1"/>
+                        <field name="sql_bool" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_report_excel_fields_form" model="ir.ui.view">
+            <field name="name">report.excel.fields.form</field>
+            <field name="model">report.excel.fields</field>
+            <field name="arch" type="xml">
+				                <form string="Report Excel Fields">
+	                                    <field name="report_excel_section_id"  attrs="{'readonly' : True, 'invisible': 0}" options="{'no_open': True, 'no_create': True}"/>
+									<group col="4">
+	                                    <field name="cell" placeholder="e.g. B7"/>
+	                                    <field name="show" invisible="1"/>
+	                                    <field name="root_model_id" invisible="1"/>
+	                                    <field name="root_model_name" invisible="1"/>
+										<field name="check_root_model"  invisible="1"/>	                                    
+										<field name="field_type"  invisible="1"/>	                                    
+	                                </group>
+									<p> <field name="aggregate" invisible="1"/> </p>
+									<p> <field name="aggregate_ids" invisible="1"/> </p>
+									<p> <field name="having_param_ids" invisible="1"/> </p>
+									<p> <field name="having_value_type" invisible="1"/> </p>
+									<p> <field name="cumulative_having_field" invisible="1"/> </p>
+									<group col="4">
+	                                    <field name="aggregate_id" attrs="{'invisible' : [('group_by', '!=', False)]}" options="{'no_open': True, 'no_create': True}" domain="[('id','in', aggregate_ids)]"/>
+	                                    <field name="group_by" attrs="{'invisible' : [('aggregate', '!=', False)]}"/>
+	                                </group>
+									<group col="4">
+	                                    <field name="having_operator" attrs="{'invisible' : [('aggregate', '=', False)]}"/>
+	                                    <field name="having_selection" attrs="{'required': [('having_operator','!=',False)],'invisible' : [('having_operator', '=', False)]}" nolabel="1"/>
+	                                    <p>
+	                                    <field name="having_value_date" attrs="{'required': ['&amp;','&amp;',['having_value_type','=','date'],['having_selection','=','value'],['having_operator', '!=', False]],
+	                                    'invisible' : ['|','|','&amp;',['having_value_type','!=','date'],['having_selection','=','value'],['having_selection','=','param'],['having_operator', '=', False]]}" nolabel="1"/>
+	                                    <field name="having_value_datetime" attrs="{'required': ['&amp;','&amp;',['having_value_type','=','datetime'],['having_selection','=','value'],['having_operator', '!=', False]],
+	                                    'invisible' : ['|','|','&amp;',['having_value_type','!=','datetime'],['having_selection','=','value'],['having_selection','=','param'],['having_operator', '=', False]]}" nolabel="1"/>
+	                                    <field name="having_value_float" attrs="{'required': ['&amp;','&amp;',['having_value_type','=','float'],['having_selection','=','value'],['having_operator', '!=', False]], 
+	                                    'invisible' : ['|','|','&amp;',['having_value_type','!=','float'],['having_selection','=','value'],['having_selection','=','param'],['having_operator', '=', False]]}" nolabel="1"/>
+	                                    <field name="having_param_id" attrs="{'required': [('having_selection','=','param')],'invisible' : ['|', ('having_operator','=',False), ('having_selection','!=','param')]}" 
+	                                    							domain="[('id','in', having_param_ids)]" options="{'no_open': True, 'no_create': True}" nolabel="1"/>
+	                                    </p>
+	                                </group>
+									<group col="4">
+	                                    <field name="sort_by"/>
+	                                    <field name="sequence"  invisible="1"/>
+	                                </group>
+									<group>
+	                                    <field name="formula" invisible="0"/>
+	                                </group>
+									<group string="Python Code" attrs="{'invisible' : [('formula', '=', False)]}">
+	                                    <field name="formulas" widget="ace" options="{'mode': 'python'}"
+	                                    		placeholder="Enter Python code here. Help about Python expression is available in the help tab of this cell." nolabel="1"/>
+	                                </group>
+									<group string="Model Fields" col="1">
+	                                    <field name="cumulative_model_field"  nolabel="1"/>
+										<field name="model_field_selector" widget="report_field"  options="{'model_field': 'root_model_name'}"  nolabel="1"/>
+									</group>
+										<group>
+		                                    <field name="description"/>
+		                                </group>
+								</form>
+            </field>
+        </record>
+        <record id="view_report_excel_fields_tree" model="ir.ui.view">
+            <field name="name">report.excel.fields.tree</field>
+            <field name="model">report.excel.fields</field>
+            <field name="arch" type="xml">
+                                <tree string="Report Excel Fields">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="cell"/>
+									<field name="show" invisible="1"/>
+                                    <field name="cumulative_model_field"/>
+									<field name="formula" string="Formula" invisible="0"/>
+                                    <field name="group_by" attrs="{'invisible' : [('aggregate', '!=', False)]}"/>
+                                    <field name="aggregate" invisible="1"/>
+                                    <field name="aggregate_id" attrs="{'invisible' : [('group_by', '!=', False)]}"/>
+                                    <field name="cumulative_having_field"/>
+                                    <field name="sort_by"/>
+                                </tree>
+            </field>
+        </record>
+        <record id="view_report_excel_fields_sql_form" model="ir.ui.view">
+            <field name="name">report.excel.fields.sql.form</field>
+            <field name="model">report.excel.fields.sql</field>
+            <field name="arch" type="xml">
+				                <form string="Report Excel Fields SQL">
+									<group col="4">
+	                                    <field name="cell"/>
+	                                    <field name="report_excel_section_id" attrs="{'readonly' : True, 'invisible': 0}" options="{'no_open': True, 'no_create': True}"/>
+	                                    <field name="show"/>
+	                                    <field name="column_index"/>
+	                                    <field name="root_model_id" invisible="1"/>
+	                                </group>
+									<group>
+	                                    <field name="formulas"/>
+	                                </group>
+								</form>
+            </field>
+        </record>
+        <record id="view_report_excel_fields_sql_tree" model="ir.ui.view">
+            <field name="name">report.excel.fields.sql.tree</field>
+            <field name="model">report.excel.fields.sql</field>
+            <field name="arch" type="xml">
+                                <tree string="Report Excel Fields">
+                                    <field name="cell"/>
+                                    <field name="show"/>
+                                    <field name="column_index"/>
+                                </tree>
+            </field>
+        </record>
+        <record id="action_report_excel_tree" model="ir.actions.act_window">
+            <field name="name">Report Excel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.excel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="report_excel_view_search" />
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Report configuration.
+              </p><p>
+                Configuration contains basic settings to generate report.
+              </p>
+            </field>
+        </record>
+		<record id="view_model_fields_tree_model" model="ir.ui.view">
+		    <field name="name">ir.model.fields.tree.model</field>
+		    <field name="model">ir.model.fields</field>
+		    <field eval="8" name="priority"/>
+		    <field name="arch" type="xml">
+		        <tree string="Models" duplicate="false" default_order='field_description'>
+					<field name="field_description" string="Parent Section Model Field Label" />
+					<field name="name" string="Parent Section Model Field" />
+					<field name="ttype" string="Parent Section Model Field Type" />
+					<field name="relation_model_name" />
+		        </tree>
+		    </field>
+		</record>
+</odoo>
