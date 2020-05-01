@@ -1,0 +1,7 @@
+
+Known Issues:
+-----------------
+
+1) Wrap text does not adjust row height in Excel:
+https://support.microsoft.com/en-US/help/149663/wrap-text-does-not-adjust-row-height-in-excel
+https://excelribbon.tips.net/T010563_Automatic_Row_Height_For_Merged_Cells_with_Text_Wrap.html

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record id="view_report_excel_wizard" model="ir.ui.view">
+              <field name="name">Report Excel</field>
+              <field name="model">report_excel_wizard</field>
+              <field name="arch" type="xml">
+                <form string="Report Excel">
+	                <p class="oe_gray" >
+                        <field name="report_description" invisible="0" nolabel="1"/>
+	                </p>
+	                <p>
+                        <field name="report_conf" widget="selection" invisible="1"/>
+                        <field name="report_name" widget="selection" invisible="1"/>
+	                </p>
+                    <group name='placeholder' col="4">
+                    </group>
+                    <footer >
+                        <button name="export_excel" string="Print"  type="object" class="btn-primary"/>
+                        <button type="button" string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+              </field>
+        </record>
+</data>
+</openerp>

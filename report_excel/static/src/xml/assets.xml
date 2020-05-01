@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<template id="assets_backend" inherit_id="web.assets_backend">
+    <xpath expr=".">
+	<script type="text/javascript" src="/report_excel/static/src/js/basic_model_param.js"/>
+	<script type="text/javascript" src="/report_excel/static/src/js/domain_param.js"/>
+	<script type="text/javascript" src="/report_excel/static/src/js/domain_selector_param.js"/>
+	<script type="text/javascript" src="/report_excel/static/src/js/domain_selector_dialog_param.js"/>
+	<script type="text/javascript" src="/report_excel/static/src/js/domain_field_param.js"/>
+       <link rel="stylesheet" href="/report_excel/static/src/less/report_excel_modal_dialog.less"/> 
+        <script type="text/javascript" src="/report_excel/static/src/js/report_model_field_selector.js"/>
+        <script type="text/javascript" src="/report_excel/static/src/js/report_field.js"/>
+        <script type="text/javascript" src="/report_excel/static/src/js/form_view_dialog_modal.js"></script>
+        <script type="text/javascript" src="/report_excel/static/src/js/web_export_xlsx.js"></script>
+    </xpath>
+</template>
+</odoo>
