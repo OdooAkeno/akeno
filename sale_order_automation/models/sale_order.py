@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
         return res  
 
 
-    @api.depends('effective_date')
+    @api.onchange('effective_date')
     def creation_et_validation_facture(self):
         for order in self:
             warehouse=order.warehouse_id
