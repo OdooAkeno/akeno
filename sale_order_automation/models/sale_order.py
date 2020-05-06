@@ -4,6 +4,8 @@ from odoo import api, fields, models, exceptions
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    picking_ids = fields.One2many('stock.picking', 'sale_id', string='Transfers')
+
     @api.multi
     def action_confirm(self):
         imediate_obj=self.env['stock.immediate.transfer']
@@ -29,7 +31,7 @@ class SaleOrder(models.Model):
         return res  
 
 
-    @api.depends('effective_date')
+    @api.depends('picking_ids.date_done')
     def create_and_validate_invoice(self):
         for order in self:
 
