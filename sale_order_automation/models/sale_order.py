@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-
+    date_generate_invoice = fields.Date("Date facture", compute='creation_et_validation_facture', store=True)
     @api.multi
     def action_confirm(self):
         imediate_obj=self.env['stock.immediate.transfer']
@@ -30,12 +30,17 @@ class SaleOrder(models.Model):
         return res  
 
 
-    @api.onchange('effective_date')
+    @api.depends('picking_ids.date_done')
     def creation_et_validation_facture(self):
         for order in self:
+
             warehouse=order.warehouse_id
             if warehouse.create_invoice and not order.invoice_ids:
                 order.action_invoice_create()  
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
                     invoice.action_invoice_open()
+
+            pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
+            dates_list = [date for date in pickings.mapped('date_done') if date]
+            order.date_generate_invoice = min(dates_list).date() if dates_list else False
