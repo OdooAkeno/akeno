@@ -36,11 +36,13 @@ class SaleOrder(models.Model):
 
             pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
             warehouse=order.warehouse_id
+
+            dates_list = [date for date in pickings.mapped('date_done') if date]
+            order.date_generate_invoice = min(dates_list).date() if dates_list else False
+
+            self._cr.commit()
             if warehouse.create_invoice and not order.invoice_ids and pickings:
                 order.action_invoice_create()  
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
                     invoice.action_invoice_open()
-
-            dates_list = [date for date in pickings.mapped('date_done') if date]
-            order.date_generate_invoice = min(dates_list).date() if dates_list else False
