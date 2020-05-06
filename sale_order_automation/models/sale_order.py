@@ -16,6 +16,7 @@ class SaleOrder(models.Model):
                     picking.action_confirm()
                     picking.action_assign()
 
+
                     #imediate_rec = imediate_obj.create({'pick_ids': [(4, order.picking_ids.id)]})
                     #imediate_rec.process()
                     if picking.state !='done':
@@ -28,10 +29,8 @@ class SaleOrder(models.Model):
         return res  
 
 
-    @api.depends('picking_ids.date_done')
-    def _compute_effective_date(self):
-        super(SaleOrder, self)._compute_effective_date()
-
+    @api.depends('effective_date')
+    def create_and_validate_invoice(self):
         for order in self:
 
             warehouse=order.warehouse_id
