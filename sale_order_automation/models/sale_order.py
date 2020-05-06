@@ -30,7 +30,9 @@ class SaleOrder(models.Model):
 
 
     @api.depends('picking_ids.date_done')
-    def create_and_validate_invoice(self):
+    def _compute_effective_date(self):
+        super(SaleOrder, self)._compute_effective_date()
+        
         for order in self:
 
             warehouse=order.warehouse_id
