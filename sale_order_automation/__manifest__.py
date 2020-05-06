@@ -18,6 +18,7 @@
     'depends' : ['sale_management','stock'],
     'data': [
         'views/stock_warehouse.xml',
+        'views/sale_order_views.xml',
     ],
     
     'installable': True,
