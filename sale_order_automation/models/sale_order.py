@@ -24,7 +24,16 @@ class SaleOrder(models.Model):
                             move.quantity_done = move.product_uom_qty
                         #picking.button_validate()
 
-            self._cr.commit()
+            #self._cr.commit()
+
+        return res  
+
+
+    @api.depends('picking_ids.date_done')
+    def create_and_validate_invoice(self):
+        for order in self:
+
+            warehouse=order.warehouse_id
 
             if warehouse.create_invoice and not order.invoice_ids:
                 order.action_invoice_create()  
@@ -32,5 +41,3 @@ class SaleOrder(models.Model):
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
                     invoice.action_invoice_open()
-
-        return res  
