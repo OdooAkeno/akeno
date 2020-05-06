@@ -32,13 +32,9 @@ class SaleOrder(models.Model):
 
     @api.depends('effective_date')
     def creation_et_validation_facture(self):
-        raise UserError(_('Avant le for'))
         for order in self:
-            raise UserError(_('juste apres le for'))
             warehouse=order.warehouse_id
-            raise UserError(_(warehouse))
             if warehouse.create_invoice and not order.invoice_ids:
-                raise UserError(_('dans le 1er if'))
                 order.action_invoice_create()  
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
