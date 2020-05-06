@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
         return res  
 
 
-    @api.depends('effective_date')
+    @api.onchange('effective_date')
     def creation_et_validation_facture(self):
         raise UserError(_('Avant le for'))
         for order in self:
