@@ -17,8 +17,8 @@ class SaleOrder(models.Model):
                     picking.action_assign()
 
 
-                    # imediate_rec = imediate_obj.create({'pick_ids': [(4, order.picking_ids.id)]})
-                    # imediate_rec.process() 
+                    #imediate_rec = imediate_obj.create({'pick_ids': [(4, order.picking_ids.id)]})
+                    #imediate_rec.process()
                     if picking.state !='done':
                         for move in picking.move_ids_without_package:
                             move.quantity_done = move.product_uom_qty
