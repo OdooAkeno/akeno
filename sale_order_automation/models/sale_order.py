@@ -5,6 +5,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     picking_ids = fields.One2many('stock.picking', 'sale_id', string='Transfers')
+    effective_date = fields.Date("Effective Date", compute='_compute_effective_date', store=True, help="Completion date of the first delivery order.")
 
     @api.multi
     def action_confirm(self):
@@ -32,15 +33,15 @@ class SaleOrder(models.Model):
 
 
     @api.depends('picking_ids.date_done')
-    def create_and_validate_invoice(self):
+    def _compute_effective_date(self):
         for order in self:
-            raise UserError(_('Regarde alors:\n' + order.warehouse_id))
-
             warehouse=order.warehouse_id
+            pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
+            dates_list = [date for date in pickings.mapped('date_done') if date]
+            order.effective_date = min(dates_list).date() if dates_list else False
 
             if warehouse.create_invoice and not order.invoice_ids:
                 order.action_invoice_create()  
-
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
                     invoice.action_invoice_open()
