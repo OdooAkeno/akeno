@@ -22,7 +22,7 @@ class SaleOrder(models.Model):
                     if picking.state !='done':
                         for move in picking.move_ids_without_package:
                             move.quantity_done = move.product_uom_qty
-                        picking.button_validate()
+                        #picking.button_validate()
 
             self._cr.commit()
 
