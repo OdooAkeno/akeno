@@ -4,8 +4,6 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    picking_ids = fields.One2many('stock.picking', 'sale_id', string='Transfers')
-    effective_date = fields.Date("Effective Date", compute='_compute_effective_date', store=True, help="Completion date of the first delivery order.")
 
     @api.multi
     def action_confirm(self):
@@ -32,15 +30,15 @@ class SaleOrder(models.Model):
         return res  
 
 
-    @api.depends('picking_ids.date_done')
-    def _compute_effective_date(self):
+    @api.depends('effective_date')
+    def creation_et_validation_facture(self):
+        raise UserError(_('Avant le for'))
         for order in self:
+            raise UserError(_('juste apres le for'))
             warehouse=order.warehouse_id
-            pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
-            dates_list = [date for date in pickings.mapped('date_done') if date]
-            order.effective_date = min(dates_list).date() if dates_list else False
-
+            raise UserError(_(warehouse))
             if warehouse.create_invoice and not order.invoice_ids:
+                raise UserError(_('dans le 1er if'))
                 order.action_invoice_create()  
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
