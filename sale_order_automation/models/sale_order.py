@@ -1,5 +1,5 @@
 from odoo import api, fields, models, exceptions
-
+from odoo.exceptions import UserError
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -34,6 +34,7 @@ class SaleOrder(models.Model):
     @api.depends('picking_ids.date_done')
     def create_and_validate_invoice(self):
         for order in self:
+            raise UserError(_('Regarde alors:\n' + order.warehouse_id))
 
             warehouse=order.warehouse_id
 
