@@ -35,7 +35,7 @@ class SaleOrder(models.Model):
         for order in self:
 
             warehouse=order.warehouse_id
-            if warehouse.create_invoice and not order.invoice_ids:
+            if warehouse.create_invoice and not order.invoice_ids and order.picking_ids.date_done:
                 order.action_invoice_create()  
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
