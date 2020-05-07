@@ -42,7 +42,7 @@ class SaleOrder(models.Model):
                 order.action_invoice_create()  
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
-                    invoice.action_invoice_open()
+                    invoice.sudo().action_invoice_open()
 
             dates_list = [date for date in pickings.mapped('date_done') if date]
             order.date_generate_invoice = min(dates_list).date() if dates_list else False
