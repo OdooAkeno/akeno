@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    date_generate_invoice = fields.Date("Date de facturation", compute='creation_et_validation_facture', store=True)
+    date_generate_invoice = fields.Date("Date de la derniere facturation", compute='creation_et_validation_facture', store=True)
     @api.multi
     def action_confirm(self):
         imediate_obj=self.env['stock.immediate.transfer']
@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
         return res  
 
     @api.multi
-    @api.depends('picking_ids.date_done')
+    @api.depends('order_line.qty_delivered')
     def creation_et_validation_facture(self):
         for order in self:
 
