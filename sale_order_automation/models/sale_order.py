@@ -4,7 +4,8 @@ from odoo.exceptions import UserError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    date_generate_invoice = fields.Date("Date facture", compute='creation_et_validation_facture', store=True)
+    date_generate_invoice = fields.Date("Date de facturation", compute='creation_et_validation_facture', store=True)
+
     @api.multi
     def action_confirm(self):
         imediate_obj=self.env['stock.immediate.transfer']
@@ -16,7 +17,7 @@ class SaleOrder(models.Model):
                 for picking in self.picking_ids:
                     picking.action_confirm()
                     picking.action_assign()
-
+                    picking.carrier_id = None
 
                     #imediate_rec = imediate_obj.create({'pick_ids': [(4, order.picking_ids.id)]})
                     #imediate_rec.process()
@@ -29,17 +30,17 @@ class SaleOrder(models.Model):
 
         return res  
 
-    @api.multi
-    @api.depends('picking_ids.date_done')
+    @api.multi   
+    @api.depends('order_line.qty_delivered')
     def creation_et_validation_facture(self):
         for order in self:
 
-            pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
             warehouse=order.warehouse_id
+            pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
 
-            self._cr.commit()
-            if warehouse.create_invoice and not order.invoice_ids and pickings:
-                order.action_invoice_create()  
+            if warehouse.create_invoice and pickings:
+                order.sudo().action_invoice_create() 
+
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
                     invoice.sudo().action_invoice_open()
