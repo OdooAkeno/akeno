@@ -39,7 +39,7 @@ class SaleOrder(models.Model):
 
             if warehouse.create_invoice and pickings:
                 for picking in pickings:
-                    picking.carrier_id.id = None
+                    picking.carrier_id.name = None
 
                 order.sudo().action_invoice_create() 
 
