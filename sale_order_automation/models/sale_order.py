@@ -30,6 +30,7 @@ class SaleOrder(models.Model):
         return res  
 
         
+    @api.multi   
     @api.depends('order_line.qty_delivered')
     def creation_et_validation_facture(self):
         for order in self:
@@ -38,7 +39,7 @@ class SaleOrder(models.Model):
             pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
 
             if warehouse.create_invoice and pickings:
-                pickings.carrier_id = None
+                pickings.carrier_id = False
 
                 order.sudo().action_invoice_create() 
 
