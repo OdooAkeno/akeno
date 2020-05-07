@@ -38,8 +38,7 @@ class SaleOrder(models.Model):
             pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
 
             if warehouse.create_invoice and pickings:
-                for picking in pickings:
-                    picking.carrier_id.name = None
+                pickings.carrier_id = None
 
                 order.sudo().action_invoice_create() 
 
