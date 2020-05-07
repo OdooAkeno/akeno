@@ -29,7 +29,6 @@ class SaleOrder(models.Model):
 
         return res  
 
-    @api.multi
     @api.depends('order_line.qty_delivered')
     def creation_et_validation_facture(self):
         for order in self:
