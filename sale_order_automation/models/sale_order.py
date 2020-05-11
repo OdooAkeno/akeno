@@ -46,4 +46,5 @@ class SaleOrder(models.Model):
                     invoice.sudo().action_invoice_open()
 
             dates_list = [date for date in pickings.mapped('date_done') if date]
+
             order.date_generate_invoice = min(dates_list).date() if dates_list else False
