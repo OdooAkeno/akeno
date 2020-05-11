@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_generate_invoice_form_inherit_sale_stock" model="ir.ui.view">
+            <field name="name">sale.generate.invoice.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='sale_shipping']" position="inside">
+                    <field name="date_generate_invoice"/>
+                </xpath>
+  
+           </field>
+        </record>
+
+ 
+    </data>
+</odoo>
