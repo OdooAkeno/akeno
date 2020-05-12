@@ -8,13 +8,13 @@ class PaymentInvoice(models.Model):
 
     @api.onchange('partner_id')
     def _computer_partner(self):
-        self.ensure_one()
         
-        if self.partner_id and self.partner_type == "customer":
-            invoice_id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
-        
-        elif self.partner_id and self.partner_type == "supplier":
-            invoice_id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'in_invoice')]).id
-        
-        else:
-            invoice_id = None
+        for p in self:
+            if p.partner_id and p.partner_type == "customer":
+                invoice_id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
+            
+            elif self.partner_id and self.partner_type == "supplier":
+                invoice_id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'in_invoice')]).id
+            
+            else:
+                invoice_id = None
