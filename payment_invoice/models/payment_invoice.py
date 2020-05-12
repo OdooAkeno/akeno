@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class PaymentInvoice(models.Model):
     _inherit = "account.payment"
 
-    invoice_id = fields.Many2one(comodel_name='account.invoice', string='Facture à recouvrer')
+    invoice_id = fields.Many2one('account.invoice', string='Facture à recouvrer')
 
     @api.onchange('partner_id')
     def _computer_invoice(self):
