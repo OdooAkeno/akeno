@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_distribution_form_view" model="ir.ui.view">
+        <field name="name">payment.distribution.form.view</field>
+        <field name="model">payment.distribution</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Payment Distribution">
+                <group>
+                    <group>
+                        <field name="journal_id"/>
+                        <field name="reference"/>
+                        <field name="payment_amount"/>
+                    </group>
+                    <group>
+                        <field name="invoice_type"/>
+                        <field name="payment_date" required="True"/>
+                        <field name="partner_id"/>
+                    </group>
+                </group>
+                <field name="distribution_line_ids">
+                    <tree string="Payment Distribution Line" editable="bottom" create="false">
+                        <field name="partner_id" force_save="1"/>
+                        <field name="invoice_id" force_save="1"/>
+                        <field name="date_invoice" force_save="1"/>
+                        <field name="invoice_total" orce_save="1"/>
+                        <field name="residual" force_save="1"/>
+                        <field name="currency_id" force_save="1"/>
+                        <field name="amount_to_pay"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button class="oe_highlight" special="cancel" string="Cancel"/>
+                    <button class="oe_highlight" name="make_payment_distribution" string="Make Payment" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="payment_distribution_action" model="ir.actions.act_window">
+         <field name="name">Payment Distribution</field>
+         <field name="res_model">payment.distribution</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_type">form</field>
+         <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="payment_distribution_form_view"/>
+         <field name="target">new</field>
+    </record>
+
+    <menuitem id="payment_distrubution_menu" name="Payment Distribution" parent="account.menu_finance" sequence="3"/>
+    <menuitem name="Payment Distribution" sequence='1' action="payment_distribution_action" id="menu_payment_distrubution_id" parent="payment_distrubution_menu"/>
+</odoo>
