@@ -10,10 +10,10 @@ class PaymentInvoice(models.Model):
     def _computer_invoice(self):
 
         if self.partner_id and self.partner_type == "customer":
-            self.invoice_id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
+            self.invoice_id.id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
             
         elif self.partner_id and self.partner_type == "supplier":
-            self.invoice_id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
+            self.invoice_id.id = self.env['account.invoice'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
             
         else:
-            self.invoice_id = None
+            self.invoice_id.id = None
