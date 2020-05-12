@@ -13,7 +13,7 @@ class PaymentInvoice(models.Model):
             if p.partner_id and p.partner_type == "customer":
                 invoice_id = self.env['account.invoice'].search([('partner_id', '=', p.partner_id.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')])
             
-            elif self.partner_id and self.partner_type == "supplier":
+            elif p.partner_id and p.partner_type == "supplier":
                 invoice_id = self.env['account.invoice'].search([('partner_id', '=', p.partner_id.id), ('state', '=', 'open'), ('type', '=', 'in_invoice')])
             
             else:
