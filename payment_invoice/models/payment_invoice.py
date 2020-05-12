@@ -8,8 +8,11 @@ class PaymentInvoice(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_partner(self):
-        if self.partner_id and self.partner_id.partner_type == "customer":
+        if self.partner_id and self.partner_type == "customer":
             invoice_id = self.env['account.move'].search([('partner_id', '=', self.partner_id), ('company_id', '=', self.env.company.id), ('state', '=', 'open'), ('type', '=', 'out_invoice')]).id
+        
+        else if self.partner_id and self.partner_type == "supplier":
+            invoice_id = self.env['account.move'].search([('partner_id', '=', self.partner_id), ('company_id', '=', self.env.company.id), ('state', '=', 'open'), ('type', '=', 'in_invoice')]).id
         
         else:
             invoice_id = None
