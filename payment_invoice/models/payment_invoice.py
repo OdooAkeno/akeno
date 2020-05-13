@@ -27,12 +27,15 @@ class AccountInvoice(models.Model):
 	
 	_inherit = "account.invoice"
 	
-	payment_id = fields.Many2one('account.payment',  string=u'Paiement effectué')
+	payment_id = fields.Many2one('account.payment',  string=u'Paiement effectué', compute='_compute_payment', store=True, readonly=False)
 
-	payment_invoice = fields.Many2one(string=u'Paiement-Facture', related='payment_id.invoice_id', store=True, readonly=False)
+	#payment_invoice = fields.Many2one(string=u'Paiement-Facture', related='payment_id.invoice_id', store=True, readonly=False)
+
+	def _compute_payment(self):
+		return {'domain': {'payment_id': [('type', '=', "out_invoice" ), ('invoice_id', 'in', [self.id])] }}
 
 	@api.multi
-	@api.depends('payment_invoice')
+	@api.depends('invoice_outstanding_credits_debits_widget')
 	def _compute_payments_widget_to_reconcile_info(self):
 
 		res=super(AccountInvoice,self)._compute_payments_widget_to_reconcile_info()
