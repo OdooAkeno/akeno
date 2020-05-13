@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <!-- create one access group for sales order line templates -->
-    <record id="group_sales_order_line_templates_menu_show"
-	    model="res.groups" >
-	<field name="name">Show Sales Order Line Template</field>
-    </record>
-</odoo>
