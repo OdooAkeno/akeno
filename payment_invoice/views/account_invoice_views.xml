@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_account_invoice_form_inherit_account_payment" model="ir.ui.view">
+            <field name="name">account.invoice.form.account_payment.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="payment.account_invoice_view_form_inherit_payment"/>
+            <field name="arch" type="xml">
+                <field name="residual" position="after">
+                        <field name="payment_id" />
+                </field>
+           </field>
+        </record>
+    </data>
+</odoo>
