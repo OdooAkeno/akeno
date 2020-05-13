@@ -29,7 +29,7 @@ class AccountInvoice(models.Model):
 	
 	payment_id = fields.Many2one('account.payment',  string=u'Paiement effectué')
 
-	payment_invoice = fields.Many2one(string=u'Paiement-Facture', related='payment_id.invoice_id')
+	payment_invoice = fields.Many2one(string=u'Paiement-Facture', related='payment_id.invoice_id', store=True)
 
 	@api.multi
 	@api.depends('payment_invoice')
