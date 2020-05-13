@@ -28,9 +28,10 @@ class AccountInvoice(models.Model):
 	_inherit = "account.invoice"
 	
 	payment_id = fields.Many2one('account.payment',  string=u'Paiement effectué')
-	
+
 	@api.multi
-    def _compute_payments_widget_to_reconcile_info(self):
+	def _compute_payments_widget_to_reconcile_info(self):
+
 		res=super(AccountInvoice,self)._compute_payments_widget_to_reconcile_info()
 			for invoice in self:
 
