@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_payment_invoice_form_inherit_account_payment" model="ir.ui.view">
+            <field name="name">payment.invoice.form.view</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                        <field name="invoice_id" domain="[('type','=','out_invoice'), ('state','=','open')]" attrs="{'invisible': [('payment_type', 'not in', ('inbound'))]}"/>
+                </field>
+           </field>
+        </record>
+    </data>
+</odoo>
