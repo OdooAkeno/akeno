@@ -7,6 +7,7 @@
             <field name="inherit_id" ref="account_accountant.account_invoice_view_form_customer"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='other_info']//field[@name='reference']" position="after">
+                    <field name="payment_id"/>
                     <field name="payment_invoice"/>
                 </xpath>
            </field>
