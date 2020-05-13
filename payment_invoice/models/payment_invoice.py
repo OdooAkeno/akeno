@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class PaymentInvoice(models.Model):
     _inherit = "account.payment"
 
-    invoice_id = fields.Many2one('account.invoice',  string=u'Facture à recouvrer')
+    invoice_id = fields.Many2one('account.invoice',  string=u'Facture à recouvrer', readonly=True, states={'draft': [('readonly', False)]}, tracking=True)
 
     @api.onchange('partner_id')
     def _onchange_invoice_id(self):
@@ -29,7 +29,10 @@ class AccountInvoice(models.Model):
 	
 	payment_id = fields.Many2one('account.payment',  string=u'Paiement effectué')
 
+	payment_invoice = fields.Many2one(string=u'Paiement-Facture', related='payment_id.invoice_id')
+
 	@api.multi
+	@api.depends('payment_invoice')
 	def _compute_payments_widget_to_reconcile_info(self):
 
 		res=super(AccountInvoice,self)._compute_payments_widget_to_reconcile_info()
