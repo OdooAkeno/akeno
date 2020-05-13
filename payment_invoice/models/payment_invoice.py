@@ -10,4 +10,8 @@ class PaymentInvoice(models.Model):
     def _onchange_invoice_id(self):
 
     	if self.partner_id:
-    		return {'domain': {'invoice_id': [('partner_id', 'in', [self.partner_id.id]), ('type','=','out_invoice'), ('state','=','open')] }}
+    		if self.payment_type == "inbound":
+    			return {'domain': {'invoice_id': [('partner_id', 'in', [self.partner_id.id]), ('type', '=', "out_invoice" ), ('state', '=', 'open')] }}
+
+    		if self.payment_type == "outbound":
+    			return {'domain': {'invoice_id': [('partner_id', 'in', [self.partner_id.id]), ('type', '=', "in_invoice" ), ('state', '=', 'open')] }}
