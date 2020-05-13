@@ -4,7 +4,7 @@
         <record id="view_account_invoice_form_inherit_account_payment" model="ir.ui.view">
             <field name="name">account.invoice.form.account_payment.view</field>
             <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="inherit_id" ref="account_accountant.account_invoice_view_form_customer"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='other_info']//field[@name='reference']" position="after">
                     <field name="payment_id"/>
