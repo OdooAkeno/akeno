@@ -33,10 +33,9 @@ class AccountInvoice(models.Model):
 	def _compute_payments_widget_to_reconcile_info(self):
 
 		res=super(AccountInvoice,self)._compute_payments_widget_to_reconcile_info()
-			for invoice in self:
-
-				if invoice.type = "out_invoice":
-                	domain.extend([(self.payment_id.invoice_id, '=', self.id)])
-            	if invoice.type = "in_invoice":
-                	domain.extend([(self.payment_id.invoice_id, '=', self.id)])
+		for invoice in self:
+			if invoice.type = "out_invoice":
+                domain.extend([(self.payment_id.invoice_id, '=', self.id)])
+            if invoice.type = "in_invoice":
+                domain.extend([(self.payment_id.invoice_id, '=', self.id)])
 		return res
