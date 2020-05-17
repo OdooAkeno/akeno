@@ -18,7 +18,6 @@
     'depends' : ['account'],
     'data': [
         'views/payment_invoice_views.xml',
-        'views/account_invoice_views.xml',
     ],
     
     'installable': True,
