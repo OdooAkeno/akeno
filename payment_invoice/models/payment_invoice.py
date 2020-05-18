@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class PaymentInvoice(models.Model):
     _inherit = "account.payment"
 
-    invoice_ids = fields.Many2many('account.invoice', 'account_invoice_payment_rel', 'payment_id', 'invoice_id', string="Invoices", required=True, copy=False, readonly=True, states={'draft': [('readonly', False)]}, help="""Technical field containing the invoices for which the payment has been generated.
+    invoice_ids = fields.Many2many('account.invoice', 'account_invoice_payment_rel', 'payment_id', 'invoice_id', string="Invoices", required=True, readonly=True, states={'draft': [('readonly', False)]}, help="""Technical field containing the invoices for which the payment has been generated.
                                                                                                                                                                        This does not especially correspond to the invoices reconciled with the payment,
                                                                                                                                                                        as it can have been generated first, and reconciled later""")
 
