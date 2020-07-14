@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bi_sale_return,bi_sale_return,model_bi_sale_return,base.group_user,1,1,1,1
+access_bi_sale_return_line,bi_sale_return_line,model_bi_sale_return_line,base.group_user,1,1,1,1
