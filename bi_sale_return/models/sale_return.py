@@ -30,13 +30,13 @@ class BiSaleReturn(models.Model):
                 'amount_total': amount_untaxed + amount_tax,
             })
 
-    @api.depends('location_id')
+    @api.depends('company_id')
     def _compute_location(self):
         for order in self:
             order.location_id = False
             order.picking_type_id = False
             if order.company_id:
-                location_id = self.env['stock.location'].search([('location_id', '=', order.location_id.id), ('usage', '=', 'internal')])
+                location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal')])
                 if location_id:
                     order.location_id = location_id.id
                     type_obj = self.env['stock.picking.type'].search([
