@@ -39,8 +39,8 @@ class BiSaleReturn(models.Model):
             if order.company_id:
                 location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal')])
                 if location_id:
-                    self.ensure_one()
-                    order.location_id = location_id.id
+                    for loc in location_id:
+                        order.location_id = loc.id
                     type_obj = self.env['stock.picking.type'].search([
                         ('default_location_dest_id', '=', order.location_id.id),
                         ('code', '=', 'incoming')
