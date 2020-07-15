@@ -30,7 +30,6 @@ class BiSaleReturn(models.Model):
                 'amount_total': amount_untaxed + amount_tax,
             })
 
-    @api.multi
     @api.depends('company_id')
     def _compute_location(self):
         for order in self:
@@ -40,13 +39,14 @@ class BiSaleReturn(models.Model):
                 location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal')])
                 if location_id:
                     for loc in location_id:
-                        order.location_id = loc.id
+                        order.location_id.id = loc.id
                     type_obj = self.env['stock.picking.type'].search([
                         ('default_location_dest_id', '=', order.location_id.id),
                         ('code', '=', 'incoming')
                     ])
                     if type_obj:
-                        order.picking_type_id = type_obj.id
+                        for pic in type_obj:
+                            order.picking_type_id.id = pic.id
 
     name = fields.Char('Return Reference', required=True, index=True, copy=False, default='New')
     origin = fields.Char('Source Document', copy=False)
@@ -161,7 +161,7 @@ class BiSaleReturn(models.Model):
                 'date_invoice': datetime.now().date(),
                 'date_due': datetime.now().date(),
                 'user_id': self.user_id.id,
-                'journal_id': 1,
+                'journal_id': 2,
                 'account_id': self.partner_id.property_account_receivable_id.id,
                 'date': datetime.now().date(),
                 'type': 'out_refund',
