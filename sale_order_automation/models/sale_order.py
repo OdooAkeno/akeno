@@ -39,7 +39,7 @@ class SaleOrder(models.Model):
             pickings = order.picking_ids.filtered(lambda x: x.state == 'done' and x.location_dest_id.usage == 'customer')
 
             if warehouse.create_invoice and pickings:
-                order.sudo().action_invoice_create() 
+                order.action_invoice_create() 
 
             if warehouse.validate_invoice and order.invoice_ids:
                 for invoice in order.invoice_ids:
