@@ -36,12 +36,12 @@ class BiSaleReturn(models.Model):
             order.location_id = False
             order.picking_type_id = False
             if order.company_id:
-                location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal'), ('barcode', '=', 'ZBP')])
+                location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal'), ('barcode', '=', 'ZBV')])
                 if location_id:
                     order.location_id = location_id
                     type_obj = self.env['stock.picking.type'].search([
                         ('default_location_dest_id', '=', order.location_id.id),
-                        ('code', '=', 'incoming'), ('barcode', '=', 'WH-RECEIPTS')
+                        ('code', '=', 'incoming'), ('barcode', '=', 'WH-RECEIPTS-BV')
                     ])
                     if type_obj:
                         order.picking_type_id = type_obj.id
