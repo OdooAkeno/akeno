@@ -36,17 +36,15 @@ class BiSaleReturn(models.Model):
             order.location_id = False
             order.picking_type_id = False
             if order.company_id:
-                location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal')])
+                location_id = self.env['stock.location'].search([('company_id', '=', order.company_id.id), ('usage', '=', 'internal'), ('barcode', '=', 'ZBV')])
                 if location_id:
-                    for loc in location_id:
-                        order.location_id = loc.id
+                    order.location_id = location_id
                     type_obj = self.env['stock.picking.type'].search([
                         ('default_location_dest_id', '=', order.location_id.id),
-                        ('code', '=', 'incoming')
+                        ('code', '=', 'incoming'), ('barcode', '=', 'WH-RECEIPTS-BV')
                     ])
                     if type_obj:
-                        for pic in type_obj:
-                            order.picking_type_id = pic.id
+                        order.picking_type_id = type_obj.id
 
     name = fields.Char('Return Reference', required=True, index=True, copy=False, default='New')
     origin = fields.Char('Source Document', copy=False)
