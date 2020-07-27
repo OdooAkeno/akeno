@@ -10,8 +10,8 @@
                 <field name="arch" type="xml">
                     <field name="code" position="after">
                         <field name= "is_delivery_set_to_done"/>
-                        <field name= "create_invoice" />
-                        <field name= "validate_invoice" />
+                        <field name= "create_invoice"/>
+                        <field name= "validate_invoice"/>
                     </field>
                 </field>
             </record>
