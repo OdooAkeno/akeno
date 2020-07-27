@@ -1,0 +1,118 @@
+<odoo>
+  <data>
+
+    <record id="bi_sale_return_view_form" model="ir.ui.view">
+      <field name="name">bi.sale.return.view.form</field>
+      <field name="model">bi.sale.return</field>
+      <field name="arch" type="xml">
+        <form string="Sale Return" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}">
+          <header>
+            <field name="is_delivered" invisible="1"/>
+            <button string="Approve" name="approve_return" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+            <button string="Cancel" name="cancel_return" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'return'), ('is_delivered', '=', True)]}"/>
+            <button string="Receive Products" name="send_return_products" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'return'), ('is_delivered', '=', True)]}"/>
+            <button string="Credit Note" name="create_refund" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'return'), ('is_delivered', '=', False)]}"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,return" readonly="1"/>
+          </header>
+
+          <sheet>
+            <div class="oe_title">
+
+                <h1>
+                    <field name="name" readonly="1"/>
+                </h1>
+            </div>
+
+            <group>
+              <group>
+                <field name="partner_id" required="1" domain="[('customer','=',True)]" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+              </group>
+              <group>
+                <field name="date_order" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+                <field name="origin" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+                <field name="picking_id" readonly="1"/>
+                <field name="invoice_id" readonly="1"/>
+              </group>
+            </group>
+
+            <notebook>
+              <page string="Products" name="products">
+                <field name="return_line" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}">
+                  <tree string="Sale Order Lines" editable="bottom">
+                    <field name="product_id" required="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="name" required="1"/>
+                    <field name="product_qty" required="1"/>
+                    <field name="product_uom" required="1"/>
+                    <field name="price_unit" required="1"/>
+                    <field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=','sale')]" context="{'default_type_tax_use': 'sale', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}"/>
+                    <field name="price_subtotal"/>
+                  </tree>
+                </field>
+
+                <group class="oe_subtotal_footer oe_right">
+                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <div class="oe_subtotal_footer_separator oe_inline">
+                        <label for="amount_total"/>
+                    </div>
+                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </group>
+
+              </page>
+
+              <page string="Other Information" name="other_information">
+                  <group>
+                      <group>
+                          <field name="user_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"/>
+                          <field name="picking_type_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" domain="[('code','=','incoming')]" options="{'no_create': True}"/>
+                          <field name="location_id" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" domain="[('usage','=','internal')]" options="{'no_create': True}"/>
+                          <field name="date_approve" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" groups="base.group_no_one"/>
+                      </group>
+                  </group>
+              </page>
+
+            </notebook>
+
+          </sheet>
+
+        </form>
+      </field>
+    </record>
+
+    <record id="bi_sale_return_view_tree" model="ir.ui.view">
+      <field name="name">bi.sale.return.view.tree</field>
+      <field name="model">bi.sale.return</field>
+      <field name="arch" type="xml">
+        <tree string="Sale Return">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="date_order"/>
+          <field name="amount_untaxed"/>
+          <field name="amount_total"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="bi_sale_return_action" model="ir.actions.act_window">
+      <field name="name">Sale Return</field>
+      <field name="res_model">bi.sale.return</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+      <p>Create new sales returns</p>
+      </field>
+    </record>
+
+    <menuitem
+      id="bi_sale_return_menu"
+      name="Sale Return"
+      action="bi_sale_return_action"
+      parent="sale.sale_order_menu"
+      sequence="10"/>
+
+  </data>
+</odoo>
