@@ -98,12 +98,12 @@
     </record>
 
     <record id="bi_sale_return_action" model="ir.actions.act_window">
-      <field name="name">Sale Return</field>
+      <field name="name">Retour consignes</field>
       <field name="res_model">bi.sale.return</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="help" type="html">
-      <p>Créer de nouveaux retours sur ventes</p>
+      <p>Créer de nouveaux retours de consignes</p>
       </field>
     </record>
 
