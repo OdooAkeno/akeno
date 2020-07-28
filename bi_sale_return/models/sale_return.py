@@ -48,7 +48,7 @@ class BiSaleReturn(models.Model):
 
     name = fields.Char('Reference du retour', required=True, index=True, copy=False, default='New')
     origin = fields.Char('Source Document', copy=False)
-    date_order = fields.Date(string='Date de retour', default=datetime.today())
+    date_order = fields.Date(string='Date de retour', default=fields.Date.today())
     date_approve = fields.Date(string="Date de validation")
     partner_id = fields.Many2one('res.partner', string='Client')
     currency_id = fields.Many2one('res.currency', 'Currency', required=True, default=lambda self: self.env.user.company_id.currency_id.id)
