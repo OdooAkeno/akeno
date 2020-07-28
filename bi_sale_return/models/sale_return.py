@@ -46,7 +46,7 @@ class BiSaleReturn(models.Model):
                     if type_obj:
                         order.picking_type_id = type_obj.id
 
-    name = fields.Char('Reference du retour', required=True, index=True, copy=False, default='New')
+    name = fields.Char('Reference du retour', required=True, index=True, copy=False, default='Nouveau')
     origin = fields.Char('Source Document', copy=False)
     date_order = fields.Date(string='Date de retour', default=fields.Date.today())
     date_approve = fields.Date(string="Date de validation")
@@ -151,7 +151,7 @@ class BiSaleReturn(models.Model):
     @api.multi
     def create_refund(self):
         if not self.picking_id:
-            raise UserError("Return products first!")
+            raise UserError("Retournez d'abord les produits!")
         if not self.invoice_id:
             tax_details = []
             invoice_values = {
