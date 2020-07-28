@@ -10,8 +10,8 @@
             <field name="is_delivered" invisible="1"/>
             <button string="Valider" name="approve_return" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
             <button string="Annuler" name="cancel_return" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'return'), ('is_delivered', '=', True)]}"/>
-            <button string="Receptionner les consignes" name="send_return_products" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'return'), ('is_delivered', '=', True)]}"/>
-            <button string="Creer un avoir" name="create_refund" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'return'), ('is_delivered', '=', False)]}"/>
+            <button string="Réceptionner les consignes" name="send_return_products" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'return'), ('is_delivered', '=', True)]}"/>
+            <button string="Créer un avoir" name="create_refund" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'return'), ('is_delivered', '=', False)]}"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,return" readonly="1"/>
           </header>
 
