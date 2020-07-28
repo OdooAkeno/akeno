@@ -46,44 +46,44 @@ class BiSaleReturn(models.Model):
                     if type_obj:
                         order.picking_type_id = type_obj.id
 
-    name = fields.Char('Return Reference', required=True, index=True, copy=False, default='New')
+    name = fields.Char('Reference du retour', required=True, index=True, copy=False, default='Nouveau')
     origin = fields.Char('Source Document', copy=False)
-    date_order = fields.Date(string='Order Date')
-    date_approve = fields.Date(string="Approved Date")
-    partner_id = fields.Many2one('res.partner', string='Customer')
+    date_order = fields.Date(string='Date de retour', default=fields.Date.today())
+    date_approve = fields.Date(string="Date de validation")
+    partner_id = fields.Many2one('res.partner', string='Client')
     currency_id = fields.Many2one('res.currency', 'Currency', required=True, default=lambda self: self.env.user.company_id.currency_id.id)
     state = fields.Selection([
-        ('draft', 'Draft'),
-        ('return', 'Sale Return'),
-        ('cancel', 'Cancelled')
-    ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
-    return_line = fields.One2many('bi.sale.return.line', 'return_id', string='Order Lines', copy=True)
-    amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', track_visibility='always')
+        ('draft', 'Brouillon'),
+        ('return', 'Retour consigne'),
+        ('cancel', 'Annulé')
+    ], string='Statut', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
+    return_line = fields.One2many('bi.sale.return.line', 'return_id', string='Lignes ', copy=True)
+    amount_untaxed = fields.Monetary(string='Montant hors taxe', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all')
     amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all')
-    picking_type_id = fields.Many2one('stock.picking.type', 'Deliver To', required=True, compute='_compute_location')
-    default_location_dest_id_usage = fields.Selection(related='picking_type_id.default_location_dest_id.usage', string='Destination Location Type', readonly=True)
+    picking_type_id = fields.Many2one('stock.picking.type', 'Type operation', required=True, compute='_compute_location')
+    default_location_dest_id_usage = fields.Selection(related='picking_type_id.default_location_dest_id.usage', string='Emplacement de destination', readonly=True)
     is_delivered = fields.Boolean(string="Is Delivered?", default=False, copy=False)
-    user_id = fields.Many2one('res.users', string='Return Representative', default=lambda self: self.env.user.id)
-    location_id = fields.Many2one('stock.location', string='Location', required=True, compute='_compute_location')
-    picking_id = fields.Many2one('stock.picking', string='Picking', copy=False)
-    invoice_id = fields.Many2one('account.invoice', string='Invoice', copy=False)
+    user_id = fields.Many2one('res.users', string='Responsable du retour', default=lambda self: self.env.user.id)
+    location_id = fields.Many2one('stock.location', string='Emplacement', required=True, compute='_compute_location')
+    picking_id = fields.Many2one('stock.picking', string='Livraison', copy=False)
+    invoice_id = fields.Many2one('account.invoice', string='Facture', copy=False)
     company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id.id)
 
     @api.model
     def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
+        if vals.get('name', _('Nouveau')) == _('Nouveau'):
             if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_context(force_company=vals['company_id']).next_by_code('bi.sale.return') or _('New')
+                vals['name'] = self.env['ir.sequence'].with_context(force_company=vals['company_id']).next_by_code('bi.sale.return') or _('Nouveau')
             else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('bi.sale.return') or _('New')
+                vals['name'] = self.env['ir.sequence'].next_by_code('bi.sale.return') or _('Nouveau')
         return super(BiSaleReturn, self).create(vals)
 
     @api.multi
     def unlink(self):
         for so_return in self:
             if so_return.state == 'return' and so_return.is_delivered and so_return.invoice_id:
-                raise UserError(_('You cannot delete this record since delivery order and invoice have been already created.'))
+                raise UserError(_('Vous ne pouvez pas supprimer cet enregistrement car le bon de livraison et la facture ont déjà été créés.'))
             so_return.return_line.unlink()
         return super(BiSaleReturn, self).unlink()
 
@@ -151,7 +151,7 @@ class BiSaleReturn(models.Model):
     @api.multi
     def create_refund(self):
         if not self.picking_id:
-            raise UserError("Return products first!")
+            raise UserError("Retournez d'abord les produits!")
         if not self.invoice_id:
             tax_details = []
             invoice_values = {
@@ -220,21 +220,21 @@ class BiSaleReturnLine(models.Model):
     _description = 'Sale Return Line'
 
     name = fields.Text(string='Description', required=True)
-    product_qty = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True)
+    product_qty = fields.Float(string='Quantité', digits=dp.get_precision('Product Unit of Measure'), required=True)
     tax_ids = fields.Many2many('account.tax', string='Taxes', domain=['|', ('active', '=', False), ('active', '=', True)])
-    product_uom = fields.Many2one('uom.uom', string='Product Unit of Measure', required=True)
-    product_id = fields.Many2one('product.product', string='Product', domain=[('sale_ok', '=', True), ('default_code', 'in', ['BV_12.5', 'CONS_12.5'])], change_default=True, required=True)
-    price_unit = fields.Float(string='Unit Price', required=True, digits=dp.get_precision('Product Price'))
-    price_subtotal = fields.Monetary(compute='_compute_amount', string='Subtotal', store=True)
+    product_uom = fields.Many2one('uom.uom', string='Unité de mesure', required=True)
+    product_id = fields.Many2one('product.product', string='Article', domain=[('sale_ok', '=', True), ('default_code', 'in', ['BV_12.5', 'CONS_12.5'])], change_default=True, required=True)
+    price_unit = fields.Float(string='Prix unitaire', required=True, digits=dp.get_precision('Product Price'))
+    price_subtotal = fields.Monetary(compute='_compute_amount', string='Sous total', store=True)
     price_total = fields.Monetary(compute='_compute_amount', string='Total', store=True)
-    price_tax = fields.Float(compute='_compute_amount', string='Tax', store=True)
-    return_id = fields.Many2one('bi.sale.return', string='Order Reference', index=True, required=True, ondelete='cascade')
-    account_analytic_id = fields.Many2one('account.analytic.account', string='Analytic Account')
-    analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
+    price_tax = fields.Float(compute='_compute_amount', string='Taxe', store=True)
+    return_id = fields.Many2one('bi.sale.return', string='Reference de commande', index=True, required=True, ondelete='cascade')
+    account_analytic_id = fields.Many2one('account.analytic.account', string='Compte analytique')
+    analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Etiquette analytique')
     state = fields.Selection(related='return_id.state', store=True, readonly=False)
-    currency_id = fields.Many2one(related='return_id.currency_id', store=True, string='Currency', readonly=True)
-    partner_id = fields.Many2one('res.partner', related='return_id.partner_id', string='Partner', readonly=True, store=True)
-    date_order = fields.Date(related='return_id.date_order', string='Order Date', readonly=True)
+    currency_id = fields.Many2one(related='return_id.currency_id', store=True, string='Devise', readonly=True)
+    partner_id = fields.Many2one('res.partner', related='return_id.partner_id', string='Partenaire', readonly=True, store=True)
+    date_order = fields.Date(related='return_id.date_order', string='Date de commande', readonly=True)
     company_id = fields.Many2one('res.company', 'Company', related='return_id.company_id', store=True)
 
     @api.depends('product_qty', 'price_unit', 'tax_ids')
