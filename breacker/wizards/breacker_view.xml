@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="breacker_view" model="ir.ui.view">
+        <field name="name">Breacker Menu</field>
+        <field name="model">breacker.breacker</field>
+        <field name="arch" type="xml">
+            <form string="Breacker">
+                <sheet>
+                    <group>
+                        <field name="menu"/>
+                        <field name="categ_id"/>
+                    </group>
+                </sheet>
+                <footer> 
+                    <button string="Cancel" special="cancel" class="oe_inline"/>
+                        or
+                    <button string="Breack" type="object" name="compute_breacker" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="breacker_action">
+        <field name="name">Breacker menu</field>
+        <field name="res_model">breacker.breacker</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="breacker_menu" name="Breacker Menu" parent="base.menu_users" action="breacker_action" sequence="10"/>
+
+</odoo>
